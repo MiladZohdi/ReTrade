@@ -1,0 +1,116 @@
+@media (max-width: 60em) {
+  .primary-header {
+    font-size: 3rem;
+  }
+  .hero-desc {
+    font-size: 2rem;
+    max-width: 80rem;
+  }
+}
+
+@media (max-width: 52.5em) {
+  .form-container {
+    max-height: 60rem;
+    max-width: 40rem;
+  }
+  .btn-holder-form {
+    max-width: 100%;
+    height: 6rem;
+  }
+  .switch-form {
+    width: 50%;
+    height: 6rem;
+  }
+
+  .message {
+    width: 55%;
+    padding: 1rem;
+  }
+
+  .message-text {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 36.25em) {
+  .hero-content {
+    padding: 4rem 0rem 0rem 0rem;
+  }
+}
+
+@media (max-width: 33.75em) {
+  .header-logo {
+    width: 8rem;
+    height: 8rem;
+  }
+  .btn-holder-first-page {
+    max-width: 14rem;
+    height: 3rem;
+  }
+
+  .btn-sign-first-page {
+    width: 7rem;
+  }
+
+  .btn-sign-first-page {
+    font-size: 1.2rem;
+  }
+
+  .switch-first-page {
+    width: 7rem;
+    height: 3rem;
+  }
+  .first-page {
+    padding: 2rem 3rem;
+  }
+  .primary-header {
+    font-size: 2rem;
+  }
+  .hero-desc {
+    font-size: 1.6rem;
+  }
+  .action-btn {
+    width: 20rem;
+    height: 6rem;
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 26.55em) {
+  .input {
+    max-width: 20rem;
+    height: 5rem;
+    font-size: 1.4rem;
+  }
+
+  .form-container {
+    max-height: 50rem;
+    max-width: 30rem;
+    margin-top: 2rem;
+    padding: 20rem 1.5rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .btn-holder-form {
+    max-width: 20rem !important;
+    align-items: center;
+  }
+
+  .btn-sign-form {
+    height: 5rem !important;
+    font-size: 1.6rem;
+  }
+
+  .switch-form {
+    display: block !important;
+    height: 5rem;
+  }
+
+  .message {
+    width: 70%;
+    padding: 1rem;
+  }
+}

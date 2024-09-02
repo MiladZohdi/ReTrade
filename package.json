@@ -1,0 +1,19 @@
+{
+  "name": "retrade",
+  "version": "1.0.0",
+  "description": "",
+  "default": "index.js",
+  "scripts": {
+    "start": "rm -rf .parcel-cache && rm -rf dist && parcel index.html",
+    "build": "rm -r .parcel-cache && parcel build index.html --dist-dir ./dist"
+  },
+  "author": "MiladZohdi",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.12.0"
+  },
+  "dependencies": {
+    "core-js": "^3.38.1",
+    "regenerator-runtime": "^0.14.1"
+  }
+}

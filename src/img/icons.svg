@@ -1,0 +1,37 @@
+
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+
+  <symbol xmlns="http://www.w3.org/2000/svg" id="save-icon" viewBox="0 0 512 512">
+    <path d="M352 48H160a48 48 0 00-48 48v368l144-128 144 128V96a48 48 0 00-48-48z"  stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+  </symbol>
+
+  <symbol xmlns="http://www.w3.org/2000/svg" id="my-icon" viewBox="0 0 512 512"
+    ><path d="M64 192v-72a40 40 0 0140-40h75.89a40 40 0 0122.19 6.72l27.84 18.56a40 40 0 0022.19 6.72H408a40 40 0 0140 40v40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><path d="M479.9 226.55L463.68 392a40 40 0 01-39.93 40H88.25a40 40 0 01-39.93-40L32.1 226.55A32 32 0 0164 192h384.1a32 32 0 0131.8 34.55z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+  </symbol>
+
+  <symbol xmlns="http://www.w3.org/2000/svg" id= "add-icon" viewBox="0 0 512 512">
+    <path d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+    <path fill="#e8edef" stroke="#e8edef" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M256 176v160M336 256H176"/>
+  </symbol>
+
+  <symbol xmlns="http://www.w3.org/2000/svg" id="notif-icon" viewBox="0 0 512 512">
+    <path d="M427.68 351.43C402 320 383.87 304 383.87 217.35 383.87 138 343.35 109.73 310 96c-4.43-1.82-8.6-6-9.95-10.55C294.2 65.54 277.8 48 256 48s-38.21 17.55-44 37.47c-1.35 4.6-5.52 8.71-9.95 10.53-33.39 13.75-73.87 41.92-73.87 121.35C128.13 304 110 320 84.32 351.43 73.68 364.45 83 384 101.61 384h308.88c18.51 0 27.77-19.61 17.19-32.57zM320 384v16a64 64 0 01-128 0v-16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+  </symbol>
+
+  <symbol xmlns="http://www.w3.org/2000/svg" id="eye-icon" viewBox="0 0 512 512">
+    <path d="M255.66 112c-77.94 0-157.89 45.11-220.83 135.33a16 16 0 00-.27 17.77C82.92 340.8 161.8 400 255.66 400c92.84 0 173.34-59.38 221.79-135.25a16.14 16.14 0 000-17.47C428.89 172.28 347.8 112 255.66 112z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><circle cx="256" cy="256" r="80" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/>
+  </symbol>
+
+  <symbol xmlns="http://www.w3.org/2000/svg" id="logout-icon" viewBox="0 0 512 512">
+  <path d="M304 336v40a40 40 0 01-40 40H104a40 40 0 01-40-40V136a40 40 0 0140-40h152c22.09 0 48 17.91 48 40v40M368 336l80-80-80-80M176 256h256" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+  </symbol>
+
+  <!-- <symbol xmlns="http://www.w3.org/2000/svg" id="saved-icon" viewBox="0 0 512 512">
+    <path d="M400 480a16 16 0 01-10.63-4L256 357.41 122.63 476A16 16 0 0196 464V96a64.07 64.07 0 0164-64h192a64.07 64.07 0 0164 64v368a16 16 0 01-16 16z"/>
+  </symbol> -->
+
+  <symbol xmlns="http://www.w3.org/2000/svg" id="person" viewBox="0 0 512 512">
+    <path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none" stroke="#0C2631" stroke-linecap="round" stroke-linejoin="round" stroke-width="50"/><path d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z" fill="none" stroke="#0C2631" stroke-miterlimit="10" stroke-width="50"/>
+  </symbol>
+</svg>
