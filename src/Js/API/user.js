@@ -3,8 +3,8 @@ import "regenerator-runtime/runtime.js";
 
 const users = [
   {
-    name: "Milad",
-    email: "milad@gmail.com",
+    name: "User",
+    email: "User@gmail.com",
     password: "12345678",
     isAdmin: false,
     isLogedIn: false,
