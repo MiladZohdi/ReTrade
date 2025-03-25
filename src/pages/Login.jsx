@@ -89,7 +89,7 @@ function Login() {
               />
             </>
           )}
-          <Button varitions="medium">{`${
+          <Button variations="medium">{`${
             pathname === "/login/log" ? "LogIn" : "Signup"
           }`}</Button>
         </FormRow>

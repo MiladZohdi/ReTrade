@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-const varitions = {
+const variations = {
   Large: css`
     width: 29rem;
     height: 8rem;
@@ -22,7 +22,7 @@ const Button = styled.button`
   color: var(--color-white);
   transition: all 0.5s;
 
-  ${(props) => varitions[props.varitions]}
+  ${(props) => variations[props.variations]}
 
   &:hover {
     cursor: pointer;

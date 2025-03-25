@@ -1,5 +1,30 @@
 import styled from "styled-components";
+import Row from "./Row";
+import SidbarHeader from "./SidbarHeader";
+import MainNav from "./MainNav";
 
-const Sidebar = styled.div``;
+const StyledSidebar = styled.div`
+  grid-row: 1 / -1;
+  padding: 3.2rem 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  border-right: 1px solid black;
+`;
+
+function Sidebar() {
+  return (
+    <StyledSidebar>
+      <SidbarHeader />
+      <MainNav />
+    </StyledSidebar>
+  );
+}
 
 export default Sidebar;
+
+{
+  /* <li>Home</li>
+<li>Dashboard</li>
+<li>Settings</li> */
+}
