@@ -10,6 +10,9 @@ const StyledSidebar = styled.div`
   flex-direction: column;
   gap: 3.2rem;
   border-right: 1px solid black;
+
+  background-color: #0c2631;
+  color: var(--color-white);
 `;
 
 function Sidebar() {

@@ -10,11 +10,12 @@ function App() {
     <BrowserRouter>
       <GlobalStyle />
       <Routes>
-        <Route index element={<AppLayout />} />
-        {/* <Route path="/login" element={<Login />}>
+        <Route index element={<HomePage />} />
+        <Route path="/login" element={<Login />}>
           <Route path="log" element={<Login />} />
           <Route path="sign" element={<Login />} />
-        </Route> */}
+        </Route>
+        <Route path="/app" element={<AppLayout />} />
       </Routes>
     </BrowserRouter>
   );
