@@ -1,3 +1,4 @@
+import { NavLink } from "react-router";
 import styled, { css } from "styled-components";
 
 const variations = {
@@ -13,9 +14,13 @@ const variations = {
   `,
 };
 
-const Button = styled.button`
+const Button = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   font-size: 2rem;
-  font-weight: 300;
+  font-weight: 400;
   background-color: var(--color-primary);
   border: none;
   border-radius: var(--border-radius-sm);

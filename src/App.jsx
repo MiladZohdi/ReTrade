@@ -1,9 +1,9 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import HomePage from "./pages/HomePage";
 import GlobalStyle from "./styles/GlobalStyles";
 import Login from "./pages/Login";
-import StyledForm from "./ui/StyledNavLink";
 import AppLayout from "./ui/AppLayout";
+import WelcomePage from "./pages/WelcomePage";
 
 function App() {
   return (
@@ -15,7 +15,10 @@ function App() {
           <Route path="log" element={<Login />} />
           <Route path="sign" element={<Login />} />
         </Route>
-        <Route path="/app" element={<AppLayout />} />
+        <Route path="/app" element={<AppLayout />}>
+          <Route index element={<Navigate replace to="home" />} />
+          <Route path="home" element={<WelcomePage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
