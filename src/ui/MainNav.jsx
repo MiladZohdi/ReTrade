@@ -29,6 +29,7 @@ const StyledNavLink = styled(NavLink)`
   list-style: none;
   font-size: 1.8rem;
   font-weight: 400;
+  border-radius: 1rem;
 
   transition: all 0.3s;
 
@@ -36,6 +37,10 @@ const StyledNavLink = styled(NavLink)`
     width: 2.4rem;
     height: 2.4rem;
     transition: all 0.3s;
+  }
+
+  &.active {
+    background-color: #02070a;
   }
 
   &:hover,
@@ -49,42 +54,42 @@ function MainNav() {
     <nav>
       <StyledMainNav>
         <li>
-          <StyledNavLink to="">
+          <StyledNavLink to="saved-ads">
             <HiBookmark />
             <span>Saved ads</span>
           </StyledNavLink>
         </li>
 
         <li>
-          <StyledNavLink to="">
+          <StyledNavLink to="my-ads">
             <HiFolder />
             <span>My ads</span>
           </StyledNavLink>
         </li>
 
         <li>
-          <StyledNavLink to="">
+          <StyledNavLink to="new-ad">
             <HiMiniPlusCircle />
             <span>Create new ad</span>
           </StyledNavLink>
         </li>
 
         <li>
-          <StyledNavLink to="">
+          <StyledNavLink to="notfications">
             <HiMiniBell />
             <span>Notifications</span>
           </StyledNavLink>
         </li>
 
         <li>
-          <StyledNavLink to="">
+          <StyledNavLink to="all-ads">
             <HiEye />
             <span>See all the ads</span>
           </StyledNavLink>
         </li>
 
         <li>
-          <StyledNavLink to="">
+          <StyledNavLink to="logout">
             <HiArrowRightOnRectangle />
             <span>Log Out</span>
           </StyledNavLink>
