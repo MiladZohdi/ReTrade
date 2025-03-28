@@ -6,6 +6,8 @@ import AppLayout from "./ui/AppLayout";
 import WelcomePage from "./pages/WelcomePage";
 import SavedAds from "./pages/SavedAds";
 import MyAds from "./pages/MyAds";
+import NewAd from "./pages/NewAd";
+import Notifications from "./pages/Notifications";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="home" element={<WelcomePage />} />
           <Route path="saved-ads" element={<SavedAds />} />
           <Route path="my-ads" element={<MyAds />} />
+          <Route path="new-ad" element={<NewAd />} />
+          <Route path="notfications" element={<Notifications />} />
         </Route>
       </Routes>
     </BrowserRouter>
