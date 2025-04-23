@@ -10,7 +10,6 @@ const variations = {
   medium: css`
     width: 17.5rem;
     height: 7rem;
-    align-self: center;
   `,
 };
 

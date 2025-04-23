@@ -22,6 +22,10 @@ const StyledForm = styled.form`
   padding: 3.5rem 7.5rem;
 `;
 
+const LogButton = styled(Button)`
+  align-self: center;
+`;
+
 function Login() {
   const { register } = useForm();
 
@@ -89,9 +93,9 @@ function Login() {
               />
             </>
           )}
-          <Button variations="medium">{`${
+          <LogButton variations="medium">{`${
             pathname === "/login/log" ? "LogIn" : "Signup"
-          }`}</Button>
+          }`}</LogButton>
         </FormRow>
       </StyledForm>
     </StyledLogin>
