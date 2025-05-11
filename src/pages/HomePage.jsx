@@ -36,7 +36,7 @@ function HomePage() {
       <HomeContent>
         <HomeHeader />
         <HomeDescription />
-        <Button variations="Large">Place your Ad</Button>
+        <Button variations="home">Place your Ad</Button>
       </HomeContent>
     </StyledHomePage>
   );

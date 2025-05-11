@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { BiImageAlt } from "react-icons/bi";
 import Row from "./Row";
-import { IoBookmark } from "react-icons/io5";
+import { IoBookmark, IoCheckmarkCircleSharp } from "react-icons/io5";
+import { TbEdit } from "react-icons/tb";
 
 const StyledCard = styled.div`
   height: 30rem;
@@ -11,6 +12,7 @@ const StyledCard = styled.div`
   color: var(--color-white);
   text-overflow: ellipsis;
   border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 
   & svg {
     width: 80%;
@@ -25,20 +27,21 @@ const StyledCard = styled.div`
 `;
 
 const CardContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 2rem;
 `;
 
-const StyledRow = styled.div`
+const Details = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 1.6rem;
+`;
 
-  & h3 {
-    flex: 1;
-  }
+const IconBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 1rem;
 
   & svg {
     width: 2.2rem;
@@ -46,17 +49,26 @@ const StyledRow = styled.div`
   }
 `;
 
-function Card() {
+const StyledRow = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+function Card({ saved }) {
   return (
     <StyledCard>
       <BiImageAlt />
       <CardContent>
-        <StyledRow>
-          <h3>Card</h3>
-          <IoBookmark />
-        </StyledRow>
-        <h2>20$</h2>
-        <p>Description</p>
+        <Details>
+          <h2>Card</h2>
+          <h3>20$</h3>
+          <p>Description</p>
+        </Details>
+        <IconBox>
+          {saved && <IoBookmark />}
+          {!saved && <TbEdit />}
+          {!saved && <IoCheckmarkCircleSharp />}
+        </IconBox>
       </CardContent>
     </StyledCard>
   );

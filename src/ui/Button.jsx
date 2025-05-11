@@ -2,14 +2,19 @@ import { NavLink } from "react-router";
 import styled, { css } from "styled-components";
 
 const variations = {
-  Large: css`
+  home: css`
     width: 29rem;
     height: 8rem;
   `,
 
-  medium: css`
+  log: css`
     width: 17.5rem;
     height: 7rem;
+  `,
+
+  sub: css`
+    width: 16rem;
+    height: 6rem;
   `,
 };
 

@@ -1,27 +1,11 @@
-import Card from "../ui/Card";
 import CardContainer from "../ui/CardContainer";
+import Heading from "../ui/Heading";
 
 function MyAds() {
   return (
     <>
-      <h1>My Ads</h1>
-      <CardContainer>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-      </CardContainer>
+      <Heading as="h2">My Ads</Heading>
+      <CardContainer />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Button from "../ui/Button";
+import Modal from "../ui/Modal";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -27,7 +28,7 @@ function WelcomePage() {
         at a fair price Or find great second-hand deals, saving you money on new
         purchases.
       </StyledParagraph>
-      <Button variations="Large">Place your Ad</Button>
+      <Button variations="sub">Place your Ad</Button>
     </StyledContainer>
   );
 }

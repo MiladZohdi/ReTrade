@@ -25,9 +25,3 @@ function Sidebar() {
 }
 
 export default Sidebar;
-
-{
-  /* <li>Home</li>
-<li>Dashboard</li>
-<li>Settings</li> */
-}

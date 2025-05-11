@@ -18,7 +18,7 @@ const Container = styled.main`
   flex-direction: column;
   gap: 3.2rem;
   padding: 2rem 4rem;
-  overflow: scroll;
+  overflow-y: scroll;
 `;
 
 function AppLayout() {

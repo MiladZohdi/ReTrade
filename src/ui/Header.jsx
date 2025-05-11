@@ -6,7 +6,7 @@ const StyledHeader = styled.div`
   grid-column: 2/-1;
   justify-self: end;
   align-self: center;
-  padding: 2rem 4rem;
+  padding: 2rem 4rem 1rem 4rem;
 `;
 
 function Header() {
