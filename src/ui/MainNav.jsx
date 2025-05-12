@@ -82,14 +82,14 @@ function MainNav() {
         </li>
 
         <li>
-          <StyledNavLink to="all-ads">
+          <StyledNavLink to="ads">
             <HiEye />
             <span>See all the ads</span>
           </StyledNavLink>
         </li>
 
         <li>
-          <StyledNavLink to="logout">
+          <StyledNavLink to="log-out">
             <HiArrowRightOnRectangle />
             <span>Log Out</span>
           </StyledNavLink>

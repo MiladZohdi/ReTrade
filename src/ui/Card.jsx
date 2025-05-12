@@ -54,7 +54,7 @@ const StyledRow = styled.div`
   flex-direction: row;
 `;
 
-function Card({ saved }) {
+function Card({ kind }) {
   return (
     <StyledCard>
       <BiImageAlt />
@@ -65,9 +65,14 @@ function Card({ saved }) {
           <p>Description</p>
         </Details>
         <IconBox>
-          {saved && <IoBookmark />}
-          {!saved && <TbEdit />}
-          {!saved && <IoCheckmarkCircleSharp />}
+          {kind === "/app/saved-ads" && <IoBookmark />}
+          {kind === "/app/my-ads" && (
+            <>
+              <IoCheckmarkCircleSharp />
+              <TbEdit />
+            </>
+          )}
+          {kind === "/app/ads" && ""}
         </IconBox>
       </CardContent>
     </StyledCard>

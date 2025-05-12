@@ -6,7 +6,8 @@ const GlobalStyle = createGlobalStyle`
   --color-primary-dark:#103544;
   --color-white: #D1DBDF;
   --color-black: #07161D;
-
+  --color-red: #A70000;
+  
   --gradient-background-login:linear-gradient(
     45deg,
     rgba(33, 108, 141, 1) 0%,

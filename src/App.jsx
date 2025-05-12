@@ -8,6 +8,7 @@ import SavedAds from "./pages/SavedAds";
 import MyAds from "./pages/MyAds";
 import NewAd from "./pages/NewAd";
 import Notifications from "./pages/Notifications";
+import Ads from "./pages/Ads";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="my-ads" element={<MyAds />} />
           <Route path="new-ad" element={<NewAd />} />
           <Route path="notfications" element={<Notifications />} />
+          <Route path="ads" element={<Ads />} />
         </Route>
       </Routes>
     </BrowserRouter>

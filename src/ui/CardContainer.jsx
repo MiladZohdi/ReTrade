@@ -11,22 +11,22 @@ const StyledCardContainer = styled.div`
 
 function CardContainer() {
   const path = useLocation();
-  const saved = path.pathname === "/app/saved-ads";
+  const kind = path.pathname;
 
   return (
     <StyledCardContainer>
-      <Card saved={saved} />
-      <Card saved={saved} />
-      <Card saved={saved} />
-      <Card saved={saved} />
-      <Card saved={saved} />
-      <Card saved={saved} />
-      <Card saved={saved} />
-      <Card saved={saved} />
-      <Card saved={saved} />
-      <Card saved={saved} />
-      <Card saved={saved} />
-      <Card saved={saved} />
+      <Card kind={kind} />
+      <Card kind={kind} />
+      <Card kind={kind} />
+      <Card kind={kind} />
+      <Card kind={kind} />
+      <Card kind={kind} />
+      <Card kind={kind} />
+      <Card kind={kind} />
+      <Card kind={kind} />
+      <Card kind={kind} />
+      <Card kind={kind} />
+      <Card kind={kind} />
     </StyledCardContainer>
   );
 }
