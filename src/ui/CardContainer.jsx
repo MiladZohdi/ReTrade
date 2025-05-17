@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Card from "./Card";
 import { useLocation } from "react-router";
+import Loader from "./Loader";
 
 const StyledCardContainer = styled.div`
   display: grid;

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Button from "../ui/Button";
 import Modal from "../ui/Modal";
 import LogOut from "../ui/LogOut";
+import Loader from "../ui/Loader";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -30,9 +31,6 @@ function WelcomePage() {
         purchases.
       </StyledParagraph>
       <Button variations="sub">Place your Ad</Button>
-      {/* <Modal>
-        <LogOut />
-      </Modal> */}
     </StyledContainer>
   );
 }

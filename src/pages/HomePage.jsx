@@ -20,14 +20,14 @@ function HomePage() {
       <Row>
         <RowNavLink>
           <StyledNavLink
-            to="login/log"
+            to="auth/login"
             className="active"
             variations="HomePage"
           >
             Login
           </StyledNavLink>
 
-          <StyledNavLink to="login/sign " variations="HomePage">
+          <StyledNavLink to="auth/sign " variations="HomePage">
             SignUp
           </StyledNavLink>
         </RowNavLink>

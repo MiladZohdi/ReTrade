@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-import LoginForm from "../ui/LoginForm";
+import LoginForm from "../featuers/Auth/LoginForm";
 
 const StyledLogin = styled.div`
   background: var(--gradient-background-login);
   height: 100vh;
-  padding: 8rem 0;
   overflow: hidden;
+  position: relative;
 `;
 
 function Login() {
