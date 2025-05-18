@@ -4,14 +4,12 @@ import { useEffect } from "react";
 import Loader from "./Loader";
 import FullPage from "./FullPage";
 
-function ProtectedRoot({ children }) {
+function UserProtectedRoot({ children }) {
   const navigate = useNavigate();
-  const { isAuth, isLoading } = useGetUser();
+  const { isAuth, isLoading, isAdmin } = useGetUser();
   useEffect(() => {
     if (!isAuth && !isLoading) navigate("/auth/login");
   }, [isAuth, isLoading, navigate]);
-
-  console.log(isAuth);
 
   if (isLoading)
     return (
@@ -20,7 +18,7 @@ function ProtectedRoot({ children }) {
       </FullPage>
     );
 
-  if (isAuth) return children;
+  if (isAuth && !isAdmin) return children;
 }
 
-export default ProtectedRoot;
+export default UserProtectedRoot;

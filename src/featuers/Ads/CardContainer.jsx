@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import Card from "./Card";
 import { useLocation } from "react-router";
-import Loader from "./Loader";
+import AllAds from "./AllAds";
+import MyAds from "./MyAds";
+import SavedAds from "./SavedAds";
 
 const StyledCardContainer = styled.div`
   display: grid;
@@ -16,18 +17,9 @@ function CardContainer() {
 
   return (
     <StyledCardContainer>
-      <Card kind={kind} />
-      <Card kind={kind} />
-      <Card kind={kind} />
-      <Card kind={kind} />
-      <Card kind={kind} />
-      <Card kind={kind} />
-      <Card kind={kind} />
-      <Card kind={kind} />
-      <Card kind={kind} />
-      <Card kind={kind} />
-      <Card kind={kind} />
-      <Card kind={kind} />
+      {kind === "/app/my-ads" && <MyAds />}
+      {kind === "/app/ads" && <AllAds />}
+      {kind === "/app/saved-ads" && <SavedAds />}
     </StyledCardContainer>
   );
 }

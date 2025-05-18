@@ -7,7 +7,7 @@ export async function signUpApi({ email, password, name }) {
     options: {
       data: {
         name,
-        isAdmin: false,
+        isAdmin: true,
       },
     },
   });
@@ -37,3 +37,5 @@ export async function getUserApi() {
   if (!user) throw new Error(error.message);
   return { user };
 }
+
+export async function logOutApi() {}

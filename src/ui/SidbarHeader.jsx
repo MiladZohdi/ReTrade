@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Row from "./Row";
+import { useGetUser } from "../featuers/Auth/useGetUser";
 
 const StyledSidbarHeader = styled.div`
   display: flex;
@@ -19,10 +20,17 @@ const Styledp = styled.p`
 `;
 
 function SidbarHeader() {
+  const {
+    user: {
+      user: {
+        user_metadata: { name, email },
+      },
+    },
+  } = useGetUser();
   return (
     <StyledSidbarHeader>
-      <Styledh2>Milad Zohdi</Styledh2>
-      <Styledp>info@miladzohdi.com</Styledp>
+      <Styledh2>{name}</Styledh2>
+      <Styledp>{email}</Styledp>
     </StyledSidbarHeader>
   );
 }

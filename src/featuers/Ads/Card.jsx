@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { BiImageAlt } from "react-icons/bi";
-import Row from "./Row";
+import Row from "../../ui/Row";
 import { IoBookmark, IoCheckmarkCircleSharp } from "react-icons/io5";
 import { TbEdit } from "react-icons/tb";
+import { useLocation } from "react-router";
 
 const StyledCard = styled.div`
   height: 30rem;
@@ -54,15 +55,18 @@ const StyledRow = styled.div`
   flex-direction: row;
 `;
 
-function Card({ kind }) {
+function Card({ ad }) {
+  const path = useLocation();
+  const kind = path.pathname;
+
   return (
     <StyledCard>
       <BiImageAlt />
       <CardContent>
         <Details>
-          <h2>Card</h2>
-          <h3>20$</h3>
-          <p>Description</p>
+          <h2>{ad.title}</h2>
+          <h3>{ad.price}</h3>
+          <p>{ad.desc}</p>
         </Details>
         <IconBox>
           {kind === "/app/saved-ads" && <IoBookmark />}

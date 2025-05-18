@@ -1,5 +1,4 @@
-import Card from "../ui/Card";
-import CardContainer from "../ui/CardContainer";
+import CardContainer from "../featuers/Ads/CardContainer";
 import Heading from "../ui/Heading";
 
 function SavedAds() {

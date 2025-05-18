@@ -9,6 +9,8 @@ import {
   HiEye,
   HiArrowRightOnRectangle,
 } from "react-icons/hi2";
+import { useGetUser } from "../featuers/Auth/useGetUser";
+import { BsClipboardData, BsListCheck } from "react-icons/bs";
 
 const StyledMainNav = styled.ul`
   list-style: none;
@@ -50,50 +52,76 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 function MainNav() {
+  const { isAdmin } = useGetUser();
   return (
     <nav>
       <StyledMainNav>
-        <li>
-          <StyledNavLink to="saved-ads">
-            <HiBookmark />
-            <span>Saved ads</span>
-          </StyledNavLink>
-        </li>
+        {!isAdmin ? (
+          <>
+            <li>
+              <StyledNavLink to="saved-ads">
+                <HiBookmark />
+                <span>Saved ads</span>
+              </StyledNavLink>
+            </li>
 
-        <li>
-          <StyledNavLink to="my-ads">
-            <HiFolder />
-            <span>My ads</span>
-          </StyledNavLink>
-        </li>
+            <li>
+              <StyledNavLink to="my-ads">
+                <HiFolder />
+                <span>My ads</span>
+              </StyledNavLink>
+            </li>
 
-        <li>
-          <StyledNavLink to="new-ad">
-            <HiMiniPlusCircle />
-            <span>Create new ad</span>
-          </StyledNavLink>
-        </li>
+            <li>
+              <StyledNavLink to="new-ad">
+                <HiMiniPlusCircle />
+                <span>Create new ad</span>
+              </StyledNavLink>
+            </li>
 
-        <li>
-          <StyledNavLink to="notfications">
-            <HiMiniBell />
-            <span>Notifications</span>
-          </StyledNavLink>
-        </li>
+            <li>
+              <StyledNavLink to="notfications">
+                <HiMiniBell />
+                <span>Notifications</span>
+              </StyledNavLink>
+            </li>
 
-        <li>
-          <StyledNavLink to="ads">
-            <HiEye />
-            <span>See all the ads</span>
-          </StyledNavLink>
-        </li>
+            <li>
+              <StyledNavLink to="ads">
+                <HiEye />
+                <span>See all the ads</span>
+              </StyledNavLink>
+            </li>
 
-        <li>
-          <StyledNavLink to="log-out">
-            <HiArrowRightOnRectangle />
-            <span>Log Out</span>
-          </StyledNavLink>
-        </li>
+            <li>
+              <StyledNavLink to="log-out">
+                <HiArrowRightOnRectangle />
+                <span>Log Out</span>
+              </StyledNavLink>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <StyledNavLink to="status">
+                <BsClipboardData />
+                <span>Status</span>
+              </StyledNavLink>
+            </li>
+            <li>
+              <StyledNavLink to="Check">
+                <BsListCheck />
+                <span>Check Ads</span>
+              </StyledNavLink>
+            </li>
+            <li>
+              <StyledNavLink to="log-out">
+                <HiArrowRightOnRectangle />
+                <span>Log Out</span>
+              </StyledNavLink>
+            </li>
+          </>
+        )}
       </StyledMainNav>
     </nav>
   );

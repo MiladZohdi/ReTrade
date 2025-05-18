@@ -11,8 +11,10 @@ import Notifications from "./pages/Notifications";
 import Ads from "./pages/Ads";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import ProtectedRoot from "./ui/ProtectedRoot";
+import UserProtectedRoot from "./ui/UserProtectedRoot";
 import { Toaster } from "react-hot-toast";
+import AdminProtectedRoot from "./ui/AdminProtectedRoot";
+import PageNotFound from "./ui/PageNotFound";
 
 function App() {
   const queryClient = new QueryClient({
@@ -38,9 +40,9 @@ function App() {
           <Route
             path="/app"
             element={
-              <ProtectedRoot>
+              <UserProtectedRoot>
                 <AppLayout />
-              </ProtectedRoot>
+              </UserProtectedRoot>
             }
           >
             <Route index element={<Navigate replace to="home" />} />
@@ -51,6 +53,20 @@ function App() {
             <Route path="notfications" element={<Notifications />} />
             <Route path="ads" element={<Ads />} />
           </Route>
+
+          <Route
+            path="/admin"
+            element={
+              <AdminProtectedRoot>
+                <AppLayout />
+              </AdminProtectedRoot>
+            }
+          >
+            <Route index element={<Navigate replace to="home" />} />
+            <Route path="home" element={<WelcomePage />} />
+            <Route path="saved-ads" element={<SavedAds />} />
+          </Route>
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
         <Toaster
           position="top-center"

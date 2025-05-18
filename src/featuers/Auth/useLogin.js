@@ -9,9 +9,11 @@ export function useLogin() {
   const { mutate: login, isPending: isLoading } = useMutation({
     mutationFn: (data) => loginApi(data),
     onSuccess: (data) => {
-      queryClient.setQueryData(["user", data.data]);
+      queryClient.setQueryData(["user"], data.data);
       toast.success("Loged in successfully");
-      navigate("/app");
+      data?.data?.user?.user_metadata?.isAdmin
+        ? navigate("/admin")
+        : navigate("/app");
     },
   });
 

@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import Button from "../ui/Button";
-import Modal from "../ui/Modal";
-import LogOut from "../ui/LogOut";
-import Loader from "../ui/Loader";
+import { useGetUser } from "../featuers/Auth/useGetUser";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -22,9 +20,17 @@ const StyledParagraph = styled.p`
 `;
 
 function WelcomePage() {
+  const {
+    user: {
+      user: {
+        user_metadata: { name },
+      },
+    },
+  } = useGetUser();
+
   return (
     <StyledContainer>
-      <StyledHeader>Welcome, Milad!</StyledHeader>
+      <StyledHeader>Welcome, {name}!</StyledHeader>
       <StyledParagraph>
         We're excited to offer you the opportunity to sell your pre-loved items
         at a fair price Or find great second-hand deals, saving you money on new

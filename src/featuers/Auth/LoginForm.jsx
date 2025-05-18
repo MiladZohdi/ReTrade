@@ -8,13 +8,10 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import { useSignUp } from "./useSignUp";
 import { useLogin } from "./useLogin";
-import Loader from "../../ui/Loader";
-import FullPage from "../../ui/FullPage";
 
 const StyledForm = styled.form`
   max-width: 50rem;
   background-color: #e8edef;
-  /* margin: 0 auto; */
   border-radius: 0.8rem;
   padding: 3.5rem 7.5rem;
   position: absolute;

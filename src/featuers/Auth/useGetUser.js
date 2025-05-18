@@ -7,7 +7,11 @@ export function useGetUser() {
     queryFn: getUserApi,
   });
 
-  console.log(user);
-
-  return { user, isLoading, isAuth: user?.user.role === "authenticated" };
+  return {
+    user,
+    isLoading,
+    isAuth: user?.user.role === "authenticated",
+    user_id: user?.user?.id,
+    isAdmin: user?.user?.user_metadata?.isAdmin,
+  };
 }
