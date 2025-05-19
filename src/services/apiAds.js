@@ -30,7 +30,6 @@ export async function ApiGetSavedAds(user_id) {
     return;
   }
 
-  console.log(savedAds);
   const adIds = savedAds ? savedAds?.map((ad) => ad.ad_id) : "";
 
   if (adIds.length === 0) {
@@ -53,11 +52,12 @@ export async function ApiGetSavedAds(user_id) {
   return { data };
 }
 
-export async function ApiNewAd(newAd) {
-  const { data, error } = await supabase
-    .from("ads")
-    .insert([{ some_column: "someValue", other_column: "otherValue" }])
-    .select();
-  if (error) throw new Error("somthing went wrong with uploading new ad");
-  return { data };
+export async function ApiNewAd(data, user_id) {
+  console.log(data, user_id);
+  // const { data, error } = await supabase
+  //   .from("ads")
+  //   .insert([{ some_column: "someValue", other_column: "otherValue" }])
+  //   .select();
+  // if (error) throw new Error("somthing went wrong with uploading new ad");
+  // return { data };
 }

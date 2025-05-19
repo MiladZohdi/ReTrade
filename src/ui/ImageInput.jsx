@@ -1,7 +1,6 @@
-import { HiMiniArrowUpTray } from "react-icons/hi2";
 import styled from "styled-components";
 
-const StyledImageInput = styled.div`
+const ImageInput = styled.div`
   & input {
     opacity: 0;
     width: 0.01rem;
@@ -27,23 +26,5 @@ const StyledImageInput = styled.div`
     }
   }
 `;
-
-function ImageInput({ name, title }) {
-  return (
-    <StyledImageInput>
-      <label htmlFor={name}>
-        <span>{title}</span>
-        <HiMiniArrowUpTray />
-      </label>
-      <input
-        type="file"
-        id={name}
-        name={name}
-        required
-        placeholder="Upload image"
-      />
-    </StyledImageInput>
-  );
-}
 
 export default ImageInput;

@@ -1,8 +1,12 @@
 import styled from "styled-components";
-import InputRow from "./InputRow";
-import Button from "./Button";
-import ImageInput from "./ImageInput";
+import InputRow from "../../ui/InputRow";
+import Button from "../../ui/Button";
+import ImageInput from "../../ui/ImageInput";
 import { BiImageAlt } from "react-icons/bi";
+import { useForm } from "react-hook-form";
+import { HiMiniArrowUpTray } from "react-icons/hi2";
+import useNewAd from "./useNewAd";
+import { useGetUser } from "../Auth/useGetUser";
 
 const StyledFormRow = styled.div`
   display: flex;
@@ -31,9 +35,16 @@ const ImageContainer = styled.div`
 `;
 
 function AdForm() {
+  const { register, handleSubmit } = useForm();
+  const { newAd } = useNewAd();
+  const { user_id } = useGetUser();
+  function submit(data) {
+    newAd({ ...data, image: data.image[0], user_id: user_id });
+  }
+
   return (
     <StyledAdFromContainer>
-      <form>
+      <form onSubmit={handleSubmit(submit)}>
         <StyledFormRow>
           <InputRow name="title" title="Title">
             <input
@@ -42,6 +53,7 @@ function AdForm() {
               name="title"
               required
               placeholder="Used iPhone 15 pro"
+              {...register("title")}
             />
           </InputRow>
 
@@ -52,6 +64,7 @@ function AdForm() {
               name="price"
               required
               placeholder="1000"
+              {...register("price")}
             />
           </InputRow>
 
@@ -62,21 +75,36 @@ function AdForm() {
               name="contactInfo"
               required
               placeholder="07123456789"
+              {...register("contactInfo")}
             />
           </InputRow>
 
           <InputRow name="description" title="Description">
             <textarea
               type="text"
-              id="description"
-              name="description"
+              id="desc"
+              name="desc"
               required
               placeholder="iPhone 15 which is used for 1 year ..."
+              {...register("desc")}
             />
           </InputRow>
 
           <InputRow name="image" title="Select image">
-            <ImageInput name="image" title="Upload image" />
+            <ImageInput>
+              <label htmlFor="image">
+                <span>Upload image</span>
+                <HiMiniArrowUpTray />
+              </label>
+              <input
+                type="file"
+                id="image"
+                name="image"
+                placeholder="Upload image"
+                accept="image/*"
+                {...register("image")}
+              />
+            </ImageInput>
           </InputRow>
 
           <Button variations="sub">Place Your ad</Button>
