@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { HiMiniArrowUpTray } from "react-icons/hi2";
 import useNewAd from "./useNewAd";
 import { useGetUser } from "../Auth/useGetUser";
+import { useState } from "react";
 
 const StyledFormRow = styled.div`
   display: flex;
@@ -36,10 +37,28 @@ const ImageContainer = styled.div`
 
 function AdForm() {
   const { register, handleSubmit } = useForm();
+  const [imagePreview, setImagePreview] = useState(null);
   const { newAd } = useNewAd();
   const { user_id } = useGetUser();
+
   function submit(data) {
-    newAd({ ...data, image: data.image[0], user_id: user_id });
+    newAd({
+      ...data,
+      image: data.image[0],
+      user_id: user_id,
+      isConfirmed: false,
+    });
+  }
+
+  function updateImage(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(() => reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   }
 
   return (
@@ -103,6 +122,10 @@ function AdForm() {
                 placeholder="Upload image"
                 accept="image/*"
                 {...register("image")}
+                onChange={(e) => {
+                  updateImage(e);
+                  register("image").onChange(e);
+                }}
               />
             </ImageInput>
           </InputRow>
@@ -112,7 +135,8 @@ function AdForm() {
       </form>
 
       <ImageContainer>
-        <BiImageAlt />
+        <img src={imagePreview} height="auto" width="600rem" />
+        {/* <BiImageAlt /> */}
       </ImageContainer>
     </StyledAdFromContainer>
   );

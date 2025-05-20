@@ -52,12 +52,19 @@ export async function ApiGetSavedAds(user_id) {
   return { data };
 }
 
-export async function ApiNewAd(data, user_id) {
-  console.log(data, user_id);
-  // const { data, error } = await supabase
-  //   .from("ads")
-  //   .insert([{ some_column: "someValue", other_column: "otherValue" }])
-  //   .select();
-  // if (error) throw new Error("somthing went wrong with uploading new ad");
-  // return { data };
+export async function ApiNewAd(ad) {
+  const imageName = `${Math.random()}-${ad.image.name}`.replaceAll("/", "");
+
+  const imagePath = `${BASE_URL}/adimages/${imageName}`;
+
+  const { data, error } = await supabase
+    .from("ads")
+    .insert([{ ad, image: imagePath }])
+    .select();
+  if (error) throw new Error("somthing went wrong with uploading new ad");
+  console.log(data);
+  return { data };
 }
+
+const BASE_URL =
+  "https://fhpjqtdzftqarmmqcokt.supabase.co/storage/v1/object/sign";
