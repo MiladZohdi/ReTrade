@@ -11,5 +11,6 @@ export default function useNewAd() {
       );
     },
   });
+
   return { newAd, loadingNewAd };
 }

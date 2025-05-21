@@ -1,5 +1,8 @@
 import supabase from "./supabase";
 
+const BASE_URL =
+  "https://fhpjqtdzftqarmmqcokt.supabase.co/storage/v1/object/public/";
+
 export async function ApiGetUsersAds(user_id) {
   let { data: ads, error } = await supabase
     .from("ads")
@@ -53,18 +56,24 @@ export async function ApiGetSavedAds(user_id) {
 }
 
 export async function ApiNewAd(ad) {
+  // create image name
   const imageName = `${Math.random()}-${ad.image.name}`.replaceAll("/", "");
 
+  // create imagePath
   const imagePath = `${BASE_URL}/adimages/${imageName}`;
 
-  const { data, error } = await supabase
-    .from("ads")
-    .insert([{ ad, image: imagePath }])
-    .select();
-  if (error) throw new Error("somthing went wrong with uploading new ad");
-  console.log(data);
-  return { data };
-}
+  // upload userData
 
-const BASE_URL =
-  "https://fhpjqtdzftqarmmqcokt.supabase.co/storage/v1/object/sign";
+  const { error: dataError } = await supabase
+    .from("ads")
+    .insert([{ ...ad, image: imagePath }]);
+
+  // upload image
+  const { error: imageError } = await supabase.storage
+    .from("adimages")
+    .upload(imageName, ad.image);
+
+  console.log(imageError);
+
+  if (dataError || imageError) throw new Error("somthing went wrong");
+}

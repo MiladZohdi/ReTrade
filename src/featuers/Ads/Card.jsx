@@ -15,11 +15,16 @@ const StyledCard = styled.div`
   border-radius: 1rem;
   box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
 
-  & svg {
+  & svg,
+  & img {
     width: 80%;
-    height: auto;
+    height: 60%;
     display: block;
     margin: 0 auto;
+  }
+
+  & img {
+    border-radius: var(--border-radius-sm);
   }
 
   &:hover {
@@ -28,6 +33,7 @@ const StyledCard = styled.div`
 `;
 
 const CardContent = styled.div`
+  margin-top: 1rem;
   display: grid;
   grid-template-columns: 1fr 2rem;
 `;
@@ -44,7 +50,7 @@ const IconBox = styled.div`
   justify-content: start;
   gap: 1rem;
 
-  & svg {
+  & img {
     width: 2.2rem;
     height: auto;
   }
@@ -61,7 +67,7 @@ function Card({ ad }) {
 
   return (
     <StyledCard>
-      <BiImageAlt />
+      {ad?.image ? <img src={ad.image} /> : <BiImageAlt />}
       <CardContent>
         <Details>
           <h2>{ad.title}</h2>
