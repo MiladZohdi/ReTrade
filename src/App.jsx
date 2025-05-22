@@ -15,6 +15,7 @@ import UserProtectedRoot from "./ui/UserProtectedRoot";
 import { Toaster } from "react-hot-toast";
 import AdminProtectedRoot from "./ui/AdminProtectedRoot";
 import PageNotFound from "./ui/PageNotFound";
+import AdsDetails from "./pages/AdsDetails";
 
 function App() {
   const queryClient = new QueryClient({
@@ -47,11 +48,16 @@ function App() {
           >
             <Route index element={<Navigate replace to="home" />} />
             <Route path="home" element={<WelcomePage />} />
-            <Route path="saved-ads" element={<SavedAds />} />
+            <Route path="saved-ads" element={<SavedAds />}>
+              <Route path="ad-details" element={<AdsDetails />} />
+              <Route path="ad-details/:id" element={<AdsDetails />} />
+            </Route>
             <Route path="my-ads" element={<MyAds />} />
             <Route path="new-ad" element={<NewAd />} />
             <Route path="notfications" element={<Notifications />} />
             <Route path="ads" element={<Ads />} />
+            {/* <Route path="ad-details" element={<AdsDetails />} />
+            <Route path="ad-details/:id" element={<AdsDetails />} /> */}
           </Route>
 
           <Route

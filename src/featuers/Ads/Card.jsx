@@ -3,9 +3,9 @@ import { BiImageAlt } from "react-icons/bi";
 import Row from "../../ui/Row";
 import { IoBookmark, IoCheckmarkCircleSharp } from "react-icons/io5";
 import { TbEdit } from "react-icons/tb";
-import { useLocation } from "react-router";
+import { Link, useLocation, useSearchParams } from "react-router";
 
-const StyledCard = styled.div`
+const StyledCard = styled(Link)`
   height: 30rem;
   width: 25rem;
   background: var(--gradient-background-home);
@@ -50,7 +50,7 @@ const IconBox = styled.div`
   justify-content: start;
   gap: 1rem;
 
-  & img {
+  & svg {
     width: 2.2rem;
     height: auto;
   }
@@ -66,7 +66,7 @@ function Card({ ad }) {
   const kind = path.pathname;
 
   return (
-    <StyledCard>
+    <StyledCard to={`ad-details/${ad.id}`}>
       {ad?.image ? <img src={ad.image} /> : <BiImageAlt />}
       <CardContent>
         <Details>

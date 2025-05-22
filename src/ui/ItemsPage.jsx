@@ -25,7 +25,7 @@ const Image = styled.img`
   height: 30rem;
 `;
 
-function ItemsPage() {
+function ItemsPage({ ad }) {
   return (
     <ProductContainer>
       <ProductDetails>
