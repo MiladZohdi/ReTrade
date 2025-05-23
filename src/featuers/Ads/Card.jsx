@@ -3,7 +3,7 @@ import { BiImageAlt } from "react-icons/bi";
 import Row from "../../ui/Row";
 import { IoBookmark, IoCheckmarkCircleSharp } from "react-icons/io5";
 import { TbEdit } from "react-icons/tb";
-import { Link, useLocation, useSearchParams } from "react-router";
+import { Link, useLocation } from "react-router";
 
 const StyledCard = styled(Link)`
   height: 30rem;
@@ -66,7 +66,7 @@ function Card({ ad }) {
   const kind = path.pathname;
 
   return (
-    <StyledCard to={`ad-details/${ad.id}`}>
+    <StyledCard to={`/app/ad-details/${ad.id}`}>
       {ad?.image ? <img src={ad.image} /> : <BiImageAlt />}
       <CardContent>
         <Details>

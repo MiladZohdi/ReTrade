@@ -1,4 +1,4 @@
-import ItemsPage from "../ui/ItemsPage";
+import ItemsPage from "../featuers/Ads/ItemsPage";
 
 function AdsDetails() {
   return (

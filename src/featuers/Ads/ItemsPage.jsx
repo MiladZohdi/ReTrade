@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import Heading from "./Heading";
+import Heading from "../../ui/Heading";
+import { useGetAd } from "./useGetAd";
 
 const ProductContainer = styled.div`
   display: grid;
@@ -25,7 +26,8 @@ const Image = styled.img`
   height: 30rem;
 `;
 
-function ItemsPage({ ad }) {
+function ItemsPage() {
+  const x = useGetAd();
   return (
     <ProductContainer>
       <ProductDetails>

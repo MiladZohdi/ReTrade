@@ -77,3 +77,15 @@ export async function ApiNewAd(ad) {
 
   if (dataError || imageError) throw new Error("somthing went wrong");
 }
+
+export async function ApiGetAd(id) {
+  const { data, error } = await supabase
+    .from("ads")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
