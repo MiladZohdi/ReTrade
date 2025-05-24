@@ -7,9 +7,12 @@ function SavedAdsComponent() {
   const { savedAds, loadingSavedAds } = useGetSavedAds();
 
   if (loadingSavedAds) return <Loader />;
+
+  if (!savedAds || savedAds.data.length === 0)
+    return <h1>You haven't saved any ads yet.</h1>;
+
   return (
     <CardContainer>
-      {!savedAds && <h2>You haven't saved any ads yet.</h2>}
       {savedAds?.data?.map((ad) => (
         <Card key={ad.id} ad={ad} />
       ))}

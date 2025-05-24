@@ -4,6 +4,7 @@ import Row from "../../ui/Row";
 import { IoBookmark, IoCheckmarkCircleSharp } from "react-icons/io5";
 import { TbEdit } from "react-icons/tb";
 import { Link, useLocation } from "react-router";
+import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 
 const StyledCard = styled(Link)`
   height: 30rem;
@@ -14,6 +15,7 @@ const StyledCard = styled(Link)`
   text-overflow: ellipsis;
   border-radius: 1rem;
   box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+  text-decoration: none;
 
   & svg,
   & img {
@@ -33,7 +35,7 @@ const StyledCard = styled(Link)`
 `;
 
 const CardContent = styled.div`
-  margin-top: 1rem;
+  margin-top: 2rem;
   display: grid;
   grid-template-columns: 1fr 2rem;
 `;
@@ -72,13 +74,17 @@ function Card({ ad }) {
         <Details>
           <h2>{ad.title}</h2>
           <h3>{ad.price}</h3>
-          <p>{ad.desc}</p>
+          <p>{ad.description}</p>
         </Details>
         <IconBox>
           {kind === "/app/saved-ads" && <IoBookmark />}
           {kind === "/app/my-ads" && (
             <>
-              <IoCheckmarkCircleSharp />
+              {ad?.isConfirmed ? (
+                <IoCheckmarkCircleSharp />
+              ) : (
+                <HiOutlineMagnifyingGlass />
+              )}
               <TbEdit />
             </>
           )}

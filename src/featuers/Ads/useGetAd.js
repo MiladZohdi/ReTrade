@@ -1,19 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
+import { ApiGetAd } from "../../services/apiAds";
 
 export function useGetAd() {
-  const { params } = useParams();
-  console.log(params);
-  // const { data, error } = useQuery({
-  //   queryKey: ["ad", adId],
-  //   queryFn: async () => {
-  //     const response = await fetch("http://localhost:3000/ad");
-  //     if (!response.ok) {
-  //       throw new Error("Network response was not ok");
-  //     }
-  //     const ad = await response.json();
-  //     return ad;
-  //   },
-  // });
-  // return { ad };
+  const params = useParams();
+
+  const { data: ad, isPending: loadingAd } = useQuery({
+    queryKey: ["ad", params.id],
+    queryFn: () => ApiGetAd(params.id),
+  });
+
+  return { ad, loadingAd };
 }

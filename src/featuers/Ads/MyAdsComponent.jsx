@@ -6,6 +6,10 @@ import useGetUserAds from "./useGetUserAds";
 function MyAdsComponent() {
   const { userAds, loadingUserAds } = useGetUserAds();
   if (loadingUserAds) return <Loader />;
+
+  if (!userAds || userAds.length === 0)
+    return <h1>You haven't saved any ads yet.</h1>;
+
   return (
     <CardContainer>
       {userAds?.map((ad) => (

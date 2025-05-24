@@ -29,7 +29,13 @@ function App() {
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
+        <div
+          style={{
+            fontSize: "16px",
+          }}
+        >
+          <ReactQueryDevtools initialIsOpen />
+        </div>
         <GlobalStyle />
         <Routes>
           <Route index element={<HomePage />} />

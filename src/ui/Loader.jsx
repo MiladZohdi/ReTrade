@@ -35,6 +35,19 @@ const LoaderDiv = styled.div`
   }
 `;
 
-const Loader = (props) => <LoaderDiv {...props} />;
+const Center = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const Loader = (props) => {
+  return (
+    <Center>
+      <LoaderDiv {...props} />
+    </Center>
+  );
+};
 
 export default Loader;

@@ -33,6 +33,11 @@ const ImageContainer = styled.div`
     width: 20rem;
     color: var(--color-primary-dark);
   }
+
+  & img {
+    height: 30rem;
+    width: auto;
+  }
 `;
 
 function AdForm() {

@@ -7,7 +7,7 @@ export async function signUpApi({ email, password, name }) {
     options: {
       data: {
         name,
-        isAdmin: true,
+        isAdmin: false,
       },
     },
   });

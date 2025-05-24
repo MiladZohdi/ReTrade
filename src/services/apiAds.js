@@ -45,8 +45,6 @@ export async function ApiGetSavedAds(user_id) {
     .select("*")
     .in("id", adIds);
 
-  console.log(data);
-
   if (adsError) {
     console.error("Error fetching ads:", adsError);
     return;
@@ -88,4 +86,14 @@ export async function ApiGetAd(id) {
   if (error) throw new Error(error.message);
 
   return data;
+}
+
+export async function ApiDeleteAd(id) {
+  const { error } = await supabase.from("ads").delete().eq("id", id);
+  const { error: error2 } = await supabase
+    .from("savedAds")
+    .delete()
+    .eq("ad_id", id);
+
+  if (error || error2) throw new Error(error.message);
 }
