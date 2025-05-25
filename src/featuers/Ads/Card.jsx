@@ -4,7 +4,8 @@ import Row from "../../ui/Row";
 import { IoBookmark, IoCheckmarkCircleSharp } from "react-icons/io5";
 import { TbEdit } from "react-icons/tb";
 import { Link, useLocation } from "react-router";
-import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
+import { RiHourglassFill } from "react-icons/ri";
+import { formatCurrency } from "../../helpers/formatCurrncy";
 
 const StyledCard = styled(Link)`
   height: 30rem;
@@ -73,7 +74,7 @@ function Card({ ad }) {
       <CardContent>
         <Details>
           <h2>{ad.title}</h2>
-          <h3>{ad.price}</h3>
+          <h3>{formatCurrency(ad.price)}</h3>
           <p>{ad.description}</p>
         </Details>
         <IconBox>
@@ -83,7 +84,7 @@ function Card({ ad }) {
               {ad?.isConfirmed ? (
                 <IoCheckmarkCircleSharp />
               ) : (
-                <HiOutlineMagnifyingGlass />
+                <RiHourglassFill />
               )}
               <TbEdit />
             </>

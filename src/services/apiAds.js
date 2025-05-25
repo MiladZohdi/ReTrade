@@ -28,27 +28,15 @@ export async function ApiGetSavedAds(user_id) {
     .from("savedAds")
     .select("ad_id")
     .eq("user_id", user_id);
-  if (savedAdsError) {
-    console.error("Error fetching saved ads:", savedAdsError);
-    return;
-  }
 
   const adIds = savedAds ? savedAds?.map((ad) => ad.ad_id) : "";
-
-  if (adIds.length === 0) {
-    console.log("No saved ads for user.");
-    return [];
-  }
 
   const { data, error: adsError } = await supabase
     .from("ads")
     .select("*")
     .in("id", adIds);
 
-  if (adsError) {
-    console.error("Error fetching ads:", adsError);
-    return;
-  }
+  if (savedAdsError || adsError) throw new Error("Something went wrong");
 
   return { data };
 }
@@ -96,4 +84,22 @@ export async function ApiDeleteAd(id) {
     .eq("ad_id", id);
 
   if (error || error2) throw new Error(error.message);
+}
+
+export async function ApiToggleSavedAd({ user_id, ad_id, isSaved }) {
+  if (isSaved) {
+    // If the ad is already saved, delete it
+    const { error: deleteError } = await supabase
+      .from("savedAds")
+      .delete()
+      .eq("user_id", user_id)
+      .eq("ad_id", ad_id);
+    if (deleteError) throw new Error(deleteError.message);
+  } else {
+    // If the ad is not saved, insert it
+    const { error: insertError } = await supabase
+      .from("savedAds")
+      .insert([{ user_id, ad_id }]);
+    if (insertError) throw new Error(insertError.message);
+  }
 }

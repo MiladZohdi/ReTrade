@@ -1,3 +1,4 @@
+import Heading from "../../ui/Heading";
 import Loader from "../../ui/Loader";
 import Card from "./Card";
 import CardContainer from "./CardContainer";
@@ -7,9 +8,7 @@ function SavedAdsComponent() {
   const { savedAds, loadingSavedAds } = useGetSavedAds();
 
   if (loadingSavedAds) return <Loader />;
-
-  if (!savedAds || savedAds.data.length === 0)
-    return <h1>You haven't saved any ads yet.</h1>;
+  if (!savedAds?.data?.length) return <h1 as="h2">No saved ads found</h1>;
 
   return (
     <CardContainer>

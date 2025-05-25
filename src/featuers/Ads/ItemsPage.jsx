@@ -5,14 +5,19 @@ import Loader from "../../ui/Loader";
 import { BiImageAlt } from "react-icons/bi";
 import { formatDate } from "../../helpers/formatDate";
 import { formatCurrency } from "../../helpers/formatCurrncy";
-import { IoBookmark, IoBookmarkOutline, IoLeafOutline } from "react-icons/io5";
+import {
+  IoBookmark,
+  IoBookmarkOutline,
+  IoCheckmarkCircleSharp,
+} from "react-icons/io5";
 import { TbEdit } from "react-icons/tb";
-import { RiDeleteBin5Line } from "react-icons/ri";
+import { RiDeleteBin5Line, RiHourglassFill } from "react-icons/ri";
 import { useGetUser } from "../Auth/useGetUser";
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router";
 import useGetSavedAds from "./useGetSavedAds";
 import { useDeleteAd } from "./useDeleteAd";
+import { useToggleSavedAd } from "./useToggleSavedAd";
 
 const ProductContainer = styled.div`
   display: grid;
@@ -41,6 +46,9 @@ const Button = styled.button`
     height: 3rem;
     width: auto;
     color: var(--color-primary);
+  }
+  &:disabled {
+    cursor: not-allowed;
   }
 
   :hover {
@@ -77,15 +85,17 @@ const Image = styled.img`
 `;
 
 function ItemsPage() {
-  const { ad, loadingAd } = useGetAd();
   const { user_id } = useGetUser();
+  const { ad, loadingAd } = useGetAd();
   const { savedAds, loadingSavedAds } = useGetSavedAds();
   const { deleteAd, loadingDeleteAd } = useDeleteAd();
+  const { toggleSavedAd, loadingToggleSavedAd } = useToggleSavedAd();
   const navigat = useNavigate();
 
   if (loadingSavedAds || loadingAd) return <Loader />;
 
-  const isSaved = savedAds.data?.some((savedAd) => savedAd.id === ad?.id);
+  const isDesabled = loadingDeleteAd || loadingToggleSavedAd;
+  const isSaved = savedAds?.data?.some((savedAd) => savedAd.id === ad?.id);
 
   return (
     <ProductContainer>
@@ -95,25 +105,42 @@ function ItemsPage() {
         </Button>
 
         <ControlButtonGroup>
-          {isSaved ? (
+          {!ad.isConfirmed && (
             <Button>
+              <RiHourglassFill />
+            </Button>
+          )}
+          {ad.isConfirmed && (
+            <Button>
+              <IoCheckmarkCircleSharp />
+            </Button>
+          )}
+          {isSaved && ad.isConfirmed && (
+            <Button
+              onClick={() => toggleSavedAd({ ad_id: ad.id, isSaved: isSaved })}
+              disabled={isDesabled}
+            >
               <IoBookmark />
             </Button>
-          ) : (
-            <Button>
+          )}
+          {!isSaved && ad.isConfirmed && (
+            <Button
+              onClick={() => toggleSavedAd({ ad_id: ad.id, isSaved: isSaved })}
+              disabled={isDesabled}
+            >
               <IoBookmarkOutline />
             </Button>
           )}
           {ad.user_id === user_id && (
             <>
-              <Button>
+              <Button disabled={isDesabled}>
                 <TbEdit />
               </Button>
               <Button
                 onClick={() =>
                   deleteAd(ad.id, { onSuccess: () => navigat(-1) })
                 }
-                disabled={loadingDeleteAd}
+                disabled={isDesabled}
               >
                 <RiDeleteBin5Line />
               </Button>
