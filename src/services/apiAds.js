@@ -49,6 +49,7 @@ export async function ApiNewAd(ad) {
   const imagePath = `${BASE_URL}/adimages/${imageName}`;
 
   // upload userData
+  console.log({ ...ad, image: imagePath });
 
   const { error: dataError } = await supabase
     .from("ads")
@@ -58,8 +59,6 @@ export async function ApiNewAd(ad) {
   const { error: imageError } = await supabase.storage
     .from("adimages")
     .upload(imageName, ad.image);
-
-  console.log(imageError);
 
   if (dataError || imageError) throw new Error("somthing went wrong");
 }

@@ -106,11 +106,11 @@ function AdForm() {
           <InputRow name="description" title="Description">
             <textarea
               type="text"
-              id="desc"
-              name="desc"
+              id="description"
+              name="description"
               required
               placeholder="iPhone 15 which is used for 1 year ..."
-              {...register("desc")}
+              {...register("description")}
             />
           </InputRow>
 
