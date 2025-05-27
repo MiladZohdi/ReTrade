@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Heading from "../../ui/Heading";
+import Modal from "../../ui/Modal";
 import { useGetAd } from "./useGetAd";
 import Loader from "../../ui/Loader";
 import { BiImageAlt } from "react-icons/bi";
@@ -18,6 +19,7 @@ import { useNavigate } from "react-router";
 import useGetSavedAds from "./useGetSavedAds";
 import { useDeleteAd } from "./useDeleteAd";
 import { useToggleSavedAd } from "./useToggleSavedAd";
+import AdForm from "./AdForm";
 
 const ProductContainer = styled.div`
   display: grid;
@@ -94,69 +96,80 @@ function ItemsPage() {
 
   if (loadingSavedAds || loadingAd) return <Loader />;
 
-  const isDesabled = loadingDeleteAd || loadingToggleSavedAd;
+  const isDisabled = loadingDeleteAd || loadingToggleSavedAd;
   const isSaved = savedAds?.data?.some((savedAd) => savedAd.id === ad?.id);
 
   return (
-    <ProductContainer>
-      <AdHeader>
-        <Button onClick={() => navigat(-1)}>
-          <FaArrowLeft />
-        </Button>
+    <Modal>
+      <ProductContainer>
+        <AdHeader>
+          <Button onClick={() => navigat(-1)}>
+            <FaArrowLeft />
+          </Button>
 
-        <ControlButtonGroup>
-          {!ad.isConfirmed && (
-            <Button>
-              <RiHourglassFill />
-            </Button>
-          )}
-          {ad.isConfirmed && (
-            <Button>
-              <IoCheckmarkCircleSharp />
-            </Button>
-          )}
-          {isSaved && ad.isConfirmed && (
-            <Button
-              onClick={() => toggleSavedAd({ ad_id: ad.id, isSaved: isSaved })}
-              disabled={isDesabled}
-            >
-              <IoBookmark />
-            </Button>
-          )}
-          {!isSaved && ad.isConfirmed && (
-            <Button
-              onClick={() => toggleSavedAd({ ad_id: ad.id, isSaved: isSaved })}
-              disabled={isDesabled}
-            >
-              <IoBookmarkOutline />
-            </Button>
-          )}
-          {ad.user_id === user_id && (
-            <>
-              <Button disabled={isDesabled}>
-                <TbEdit />
+          <ControlButtonGroup>
+            {!ad.isConfirmed && user_id === ad.user_id && (
+              <Button>
+                <RiHourglassFill />
               </Button>
+            )}
+            {ad.isConfirmed && user_id === ad.user_id && (
+              <Button>
+                <IoCheckmarkCircleSharp />
+              </Button>
+            )}
+            {isSaved && ad.isConfirmed && (
               <Button
                 onClick={() =>
-                  deleteAd(ad.id, { onSuccess: () => navigat(-1) })
+                  toggleSavedAd({ ad_id: ad.id, isSaved: isSaved })
                 }
-                disabled={isDesabled}
+                disabled={isDisabled}
               >
-                <RiDeleteBin5Line />
+                <IoBookmark />
               </Button>
-            </>
-          )}
-        </ControlButtonGroup>
-      </AdHeader>
-      <ProductDetails>
-        <Heading as="h1">{ad?.title}</Heading>
-        <ProductInfo>{formatDate(ad?.created_at)}</ProductInfo>
-        <ProductInfo>{formatCurrency(ad?.price)}</ProductInfo>
-        <ProductInfo>{ad?.contactInfo}</ProductInfo>
-        <ProductInfo>{ad?.description}</ProductInfo>
-      </ProductDetails>
-      {ad.image ? <Image src={ad?.image} /> : <BiImageAlt />}
-    </ProductContainer>
+            )}
+            {!isSaved && ad.isConfirmed && (
+              <Button
+                onClick={() =>
+                  toggleSavedAd({ ad_id: ad.id, isSaved: isSaved })
+                }
+                disabled={isDisabled}
+              >
+                <IoBookmarkOutline />
+              </Button>
+            )}
+            {ad.user_id === user_id && (
+              <>
+                <Modal.Open opens="editAd">
+                  <Button disabled={isDisabled}>
+                    <TbEdit />
+                  </Button>
+                </Modal.Open>
+                <Button
+                  onClick={() =>
+                    deleteAd(ad.id, { onSuccess: () => navigat(-1) })
+                  }
+                  disabled={isDisabled}
+                >
+                  <RiDeleteBin5Line />
+                </Button>
+              </>
+            )}
+          </ControlButtonGroup>
+        </AdHeader>
+        <ProductDetails>
+          <Heading as="h1">{ad?.title}</Heading>
+          <ProductInfo>{formatDate(ad?.created_at)}</ProductInfo>
+          <ProductInfo>{formatCurrency(ad?.price)}</ProductInfo>
+          <ProductInfo>{ad?.contactInfo}</ProductInfo>
+          <ProductInfo>{ad?.description}</ProductInfo>
+        </ProductDetails>
+        {ad.image ? <Image src={ad?.image} /> : <BiImageAlt />}
+      </ProductContainer>
+      <Modal.Window name="editAd">
+        <AdForm ad={ad} />
+      </Modal.Window>
+    </Modal>
   );
 }
 

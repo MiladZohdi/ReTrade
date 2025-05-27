@@ -41,26 +41,34 @@ export async function ApiGetSavedAds(user_id) {
   return { data };
 }
 
-export async function ApiNewAd(ad) {
-  // create image name
-  const imageName = `${Math.random()}-${ad.image.name}`.replaceAll("/", "");
+export async function ApiUpdateAd(ad) {
+  const { id, ...data } = ad;
+  let imageName;
+  let imagePath;
 
-  // create imagePath
-  const imagePath = `${BASE_URL}/adimages/${imageName}`;
+  if (typeof data.image !== "string" && data.image !== null) {
+    imageName = `${Math.random()}-${data.image.name}`.replaceAll("/", "");
+    imagePath = `${BASE_URL}/adimages/${imageName}`;
+  }
 
-  // upload userData
-  console.log({ ...ad, image: imagePath });
-
-  const { error: dataError } = await supabase
-    .from("ads")
-    .insert([{ ...ad, image: imagePath }]);
-
-  // upload image
-  const { error: imageError } = await supabase.storage
-    .from("adimages")
-    .upload(imageName, ad.image);
-
-  if (dataError || imageError) throw new Error("somthing went wrong");
+  if (!id) {
+    const { error: dataError } = await supabase
+      .from("ads")
+      .insert([{ ...data, image: imagePath }]);
+    if (dataError) throw new Error(dataError.message);
+  } else {
+    const { error: dataError } = await supabase
+      .from("ads")
+      .update({ ...data, image: imagePath })
+      .eq("id", id);
+    if (dataError) throw new Error(dataError.message);
+  }
+  if (imagePath) {
+    const { error: imageError } = await supabase.storage
+      .from("adimages")
+      .upload(imageName, ad.image);
+    if (imageError) throw new Error(imageError.message);
+  }
 }
 
 export async function ApiGetAd(id) {

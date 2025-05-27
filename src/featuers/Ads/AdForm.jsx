@@ -5,9 +5,9 @@ import ImageInput from "../../ui/ImageInput";
 import { BiImageAlt } from "react-icons/bi";
 import { useForm } from "react-hook-form";
 import { HiMiniArrowUpTray } from "react-icons/hi2";
-import useNewAd from "./useNewAd";
 import { useGetUser } from "../Auth/useGetUser";
 import { useState } from "react";
+import useUpdateAd from "./useUpdateAd";
 
 const StyledFormRow = styled.div`
   display: flex;
@@ -40,19 +40,39 @@ const ImageContainer = styled.div`
   }
 `;
 
-function AdForm() {
-  const { register, handleSubmit } = useForm();
+function AdForm({ ad, close }) {
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      title: ad?.title || "",
+      price: ad?.price || "",
+      contactInfo: ad?.contactInfo || "",
+      description: ad?.description || "",
+      image: ad?.image || "",
+    },
+  });
+
   const [imagePreview, setImagePreview] = useState(null);
-  const { newAd } = useNewAd();
+  const { updateAd } = useUpdateAd();
   const { user_id } = useGetUser();
+  const isEditing = ad ? true : false;
+
+  isEditing && !imagePreview && ad?.image && setImagePreview(ad?.image);
 
   function submit(data) {
-    newAd({
-      ...data,
-      image: data.image[0],
-      user_id: user_id,
-      isConfirmed: false,
-    });
+    updateAd(
+      {
+        ...data,
+        image: typeof data?.image === "string" ? ad.image : data.image[0],
+        user_id: user_id,
+        isConfirmed: false,
+        id: isEditing ? ad.id : undefined,
+      },
+      {
+        onSuccess: () => {
+          if (close) close();
+        },
+      }
+    );
   }
 
   function updateImage(e) {
@@ -140,8 +160,11 @@ function AdForm() {
       </form>
 
       <ImageContainer>
-        <img src={imagePreview} height="auto" width="600rem" />
-        {/* <BiImageAlt /> */}
+        {imagePreview ? (
+          <img src={imagePreview} height="auto" width="30rem" />
+        ) : (
+          <BiImageAlt />
+        )}
       </ImageContainer>
     </StyledAdFromContainer>
   );

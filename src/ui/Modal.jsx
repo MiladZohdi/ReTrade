@@ -1,8 +1,8 @@
+import { cloneElement, createContext, useContext, useState } from "react";
+import { createPortal } from "react-dom";
 import { HiMiniXMark } from "react-icons/hi2";
 import { IoBookmark } from "react-icons/io5";
 import styled from "styled-components";
-import ItemsPage from "./ItemsPage";
-import AdForm from "./AdForm";
 
 const Overlay = styled.div`
   position: fixed;
@@ -36,9 +36,8 @@ const CloseButton = styled.button`
   background: none;
   border: none;
 
-  & :hover {
+  &:hover {
     cursor: pointer;
-    transform: rotateX("angle");
   }
 `;
 
@@ -49,20 +48,45 @@ const ModalHeader = styled.div`
   margin-bottom: 2rem;
 `;
 
+const ModalContext = createContext();
+
 function Modal({ children }) {
+  const [openName, setOpenName] = useState("");
+  const open = (name) => setOpenName(name);
+  const close = () => setOpenName("");
+
   return (
-    <Overlay>
-      <ModalContainer>
-        <ModalHeader>
-          <IoBookmark />
-          <CloseButton>
-            <HiMiniXMark />
-          </CloseButton>
-        </ModalHeader>
-        {children}
-      </ModalContainer>
-    </Overlay>
+    <ModalContext.Provider value={{ open, close, openName }}>
+      {children}
+    </ModalContext.Provider>
   );
 }
 
+function Open({ children, opens: openWindowName }) {
+  const { open } = useContext(ModalContext);
+
+  return cloneElement(children, { onClick: () => open(openWindowName) });
+}
+
+function Window({ children, name }) {
+  const { openName, close } = useContext(ModalContext);
+  if (name !== openName) return null;
+
+  return createPortal(
+    <Overlay>
+      <ModalContainer>
+        <ModalHeader>
+          <CloseButton onClick={close}>
+            <HiMiniXMark />
+          </CloseButton>
+        </ModalHeader>
+        {cloneElement(children, { close })}
+      </ModalContainer>
+    </Overlay>,
+    document.body
+  );
+}
+
+Modal.Open = Open;
+Modal.Window = Window;
 export default Modal;
