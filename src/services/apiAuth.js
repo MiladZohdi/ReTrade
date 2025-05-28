@@ -38,4 +38,7 @@ export async function getUserApi() {
   return { user };
 }
 
-export async function logOutApi() {}
+export async function ApiLogOut() {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw new Error(error.message);
+}

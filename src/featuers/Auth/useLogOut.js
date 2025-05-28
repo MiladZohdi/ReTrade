@@ -1,0 +1,13 @@
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { ApiLogOut } from "../../services/apiAuth";
+
+export function useLogOut() {
+  const { mutate: logout } = useMutation({
+    mutationFn: () => ApiLogOut(),
+    onSuccess: () => {
+      toast.success("You logged out successfully.");
+    },
+  });
+  return { logout };
+}

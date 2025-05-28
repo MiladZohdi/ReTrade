@@ -28,16 +28,24 @@ const StyledButton = styled.button`
   }
 `;
 
-function LogOut() {
+function ConfirmationComponent({
+  close,
+  onClick,
+  title,
+  cancelButtonTitle,
+  confirmButtonTitle,
+}) {
   return (
     <LogoutContainer>
-      <p>Are you sure you want to log out?</p>
+      <p>{title}</p>
       <ButtonContainer>
-        <StyledButton type="cancel">Cancel</StyledButton>
-        <StyledButton>Log Out</StyledButton>
+        <StyledButton type="cancel" onClick={close}>
+          {cancelButtonTitle}
+        </StyledButton>
+        <StyledButton onClick={onClick}>{confirmButtonTitle}</StyledButton>
       </ButtonContainer>
     </LogoutContainer>
   );
 }
 
-export default LogOut;
+export default ConfirmationComponent;

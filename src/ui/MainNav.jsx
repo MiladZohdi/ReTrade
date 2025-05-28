@@ -92,13 +92,6 @@ function MainNav() {
                 <span>See all the ads</span>
               </StyledNavLink>
             </li>
-
-            <li>
-              <StyledNavLink to="log-out">
-                <HiArrowRightOnRectangle />
-                <span>Log Out</span>
-              </StyledNavLink>
-            </li>
           </>
         ) : (
           <>
@@ -112,12 +105,6 @@ function MainNav() {
               <StyledNavLink to="Check">
                 <BsListCheck />
                 <span>Check Ads</span>
-              </StyledNavLink>
-            </li>
-            <li>
-              <StyledNavLink to="log-out">
-                <HiArrowRightOnRectangle />
-                <span>Log Out</span>
               </StyledNavLink>
             </li>
           </>

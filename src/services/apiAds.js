@@ -46,7 +46,9 @@ export async function ApiUpdateAd(ad) {
   let imageName;
   let imagePath;
 
-  if (typeof data.image !== "string" && data.image !== null) {
+  console.log(data);
+
+  if (typeof data.image !== "string" && data.image !== undefined) {
     imageName = `${Math.random()}-${data.image.name}`.replaceAll("/", "");
     imagePath = `${BASE_URL}/adimages/${imageName}`;
   }
@@ -54,12 +56,12 @@ export async function ApiUpdateAd(ad) {
   if (!id) {
     const { error: dataError } = await supabase
       .from("ads")
-      .insert([{ ...data, image: imagePath }]);
+      .insert([{ ...data, image: imagePath ? imagePath : null }]);
     if (dataError) throw new Error(dataError.message);
   } else {
     const { error: dataError } = await supabase
       .from("ads")
-      .update({ ...data, image: imagePath })
+      .update({ ...data, image: imagePath ? imagePath : null })
       .eq("id", id);
     if (dataError) throw new Error(dataError.message);
   }

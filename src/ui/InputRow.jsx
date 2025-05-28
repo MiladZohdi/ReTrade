@@ -12,6 +12,12 @@ const StyledInputRow = styled.div`
     font-weight: 400;
   }
 
+  & p {
+    font-size: 1.4rem;
+    color: red;
+    content: "";
+  }
+
   & input {
     width: 35rem;
     height: 4rem;
@@ -41,12 +47,12 @@ const StyledInputRow = styled.div`
     }
   }
 `;
-
-function InputRow({ children, name, title }) {
+function InputRow({ children, name, title, error }) {
   return (
     <StyledInputRow>
       <label htmlFor={name}>{title}:</label>
       {children}
+      <p>{error}</p>
     </StyledInputRow>
   );
 }

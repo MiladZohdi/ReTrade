@@ -8,6 +8,7 @@ import { HiMiniArrowUpTray } from "react-icons/hi2";
 import { useGetUser } from "../Auth/useGetUser";
 import { useState } from "react";
 import useUpdateAd from "./useUpdateAd";
+import { useNavigate } from "react-router";
 
 const StyledFormRow = styled.div`
   display: flex;
@@ -41,7 +42,7 @@ const ImageContainer = styled.div`
 `;
 
 function AdForm({ ad, close }) {
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, formState } = useForm({
     defaultValues: {
       title: ad?.title || "",
       price: ad?.price || "",
@@ -55,6 +56,7 @@ function AdForm({ ad, close }) {
   const { updateAd } = useUpdateAd();
   const { user_id } = useGetUser();
   const isEditing = ad ? true : false;
+  const navigate = useNavigate();
 
   isEditing && !imagePreview && ad?.image && setImagePreview(ad?.image);
 
@@ -62,7 +64,7 @@ function AdForm({ ad, close }) {
     updateAd(
       {
         ...data,
-        image: typeof data?.image === "string" ? ad.image : data.image[0],
+        image: typeof data?.image === "string" ? ad?.image : data?.image[0],
         user_id: user_id,
         isConfirmed: false,
         id: isEditing ? ad.id : undefined,
@@ -70,6 +72,9 @@ function AdForm({ ad, close }) {
       {
         onSuccess: () => {
           if (close) close();
+          if (!close && !isEditing) {
+            navigate("/app/my-ads");
+          }
         },
       }
     );
@@ -90,51 +95,84 @@ function AdForm({ ad, close }) {
     <StyledAdFromContainer>
       <form onSubmit={handleSubmit(submit)}>
         <StyledFormRow>
-          <InputRow name="title" title="Title">
+          <InputRow
+            name="title"
+            title="Title"
+            error={formState.errors.title?.message}
+          >
             <input
               type="text"
               id="title"
               name="title"
-              required
               placeholder="Used iPhone 15 pro"
-              {...register("title")}
+              {...register("title", { required: "Please fill the title" })}
             />
           </InputRow>
 
-          <InputRow name="price" title="Price">
+          <InputRow
+            name="price"
+            title="Price"
+            error={formState.errors.price?.message}
+          >
             <input
               type="number"
               id="price"
               name="price"
-              required
               placeholder="1000"
-              {...register("price")}
+              {...register("price", {
+                required: "Please fill the price",
+                validate: (value) =>
+                  value > 0 || "Price must be greater than 0",
+              })}
             />
           </InputRow>
 
-          <InputRow name="contactInfo" title="Contact Info">
+          <InputRow
+            name="contactInfo"
+            title="Contact Info"
+            error={formState.errors.contactInfo?.message}
+          >
             <input
               type="contactInfo"
               id="contactInfo"
               name="contactInfo"
-              required
-              placeholder="07123456789"
-              {...register("contactInfo")}
+              placeholder="Email"
+              {...register("contactInfo", {
+                required: "Please fill the contact info",
+                pattern: {
+                  value:
+                    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
+                  message: "Please enter a valid email address",
+                },
+              })}
             />
           </InputRow>
 
-          <InputRow name="description" title="Description">
+          <InputRow
+            name="description"
+            title="Description"
+            error={formState.errors.description?.message}
+          >
             <textarea
               type="text"
               id="description"
               name="description"
-              required
               placeholder="iPhone 15 which is used for 1 year ..."
-              {...register("description")}
+              {...register("description", {
+                required: "Please fill the description",
+                minLength: {
+                  value: 10,
+                  message: "Description must be at least 10 characters long",
+                },
+              })}
             />
           </InputRow>
 
-          <InputRow name="image" title="Select image">
+          <InputRow
+            name="image"
+            title="Select image"
+            error={formState.errors.image?.message}
+          >
             <ImageInput>
               <label htmlFor="image">
                 <span>Upload image</span>
@@ -155,7 +193,9 @@ function AdForm({ ad, close }) {
             </ImageInput>
           </InputRow>
 
-          <Button variations="sub">Place Your ad</Button>
+          <Button variations="sub">
+            {!isEditing ? " Place Your ad" : "Edit"}
+          </Button>
         </StyledFormRow>
       </form>
 

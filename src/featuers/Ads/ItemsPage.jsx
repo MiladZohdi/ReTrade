@@ -20,6 +20,7 @@ import useGetSavedAds from "./useGetSavedAds";
 import { useDeleteAd } from "./useDeleteAd";
 import { useToggleSavedAd } from "./useToggleSavedAd";
 import AdForm from "./AdForm";
+import ConfirmationComponent from "../../ui/ConfirmationComponent";
 
 const ProductContainer = styled.div`
   display: grid;
@@ -145,14 +146,11 @@ function ItemsPage() {
                     <TbEdit />
                   </Button>
                 </Modal.Open>
-                <Button
-                  onClick={() =>
-                    deleteAd(ad.id, { onSuccess: () => navigat(-1) })
-                  }
-                  disabled={isDisabled}
-                >
-                  <RiDeleteBin5Line />
-                </Button>
+                <Modal.Open opens="deleteAd">
+                  <Button disabled={isDisabled}>
+                    <RiDeleteBin5Line />
+                  </Button>
+                </Modal.Open>
               </>
             )}
           </ControlButtonGroup>
@@ -168,6 +166,14 @@ function ItemsPage() {
       </ProductContainer>
       <Modal.Window name="editAd">
         <AdForm ad={ad} />
+      </Modal.Window>
+      <Modal.Window name="deleteAd">
+        <ConfirmationComponent
+          title="Are you sure you want to delete this ad?"
+          cancelButtonTitle="Cancel"
+          confirmButtonTitle="Delete"
+          onClick={() => deleteAd(ad.id, { onSuccess: () => navigat(-1) })}
+        />
       </Modal.Window>
     </Modal>
   );

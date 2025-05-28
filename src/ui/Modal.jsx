@@ -1,4 +1,10 @@
-import { cloneElement, createContext, useContext, useState } from "react";
+import {
+  cloneElement,
+  createContext,
+  useContext,
+  useRef,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import { HiMiniXMark } from "react-icons/hi2";
 import { IoBookmark } from "react-icons/io5";
@@ -70,10 +76,15 @@ function Open({ children, opens: openWindowName }) {
 
 function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
+  const r = useRef();
   if (name !== openName) return null;
 
+  function handleClickOutSide(e) {
+    e.target.classList === r.current.classList && close();
+  }
+
   return createPortal(
-    <Overlay>
+    <Overlay ref={r} onClick={handleClickOutSide}>
       <ModalContainer>
         <ModalHeader>
           <CloseButton onClick={close}>
