@@ -11,6 +11,9 @@ export function useSignUp() {
       toast.success("You signed up successfuly.");
       navigate("../app");
     },
+    onError: (error) => {
+      toast.error(error.message || "Sign up failed");
+    },
   });
   return { signUp, isLoading };
 }

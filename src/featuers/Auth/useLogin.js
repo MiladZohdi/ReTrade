@@ -15,6 +15,9 @@ export function useLogin() {
         ? navigate("/admin")
         : navigate("/app");
     },
+    onError: (error) => {
+      toast.error(error.message || "Login failed");
+    },
   });
 
   return { login, isLoading };

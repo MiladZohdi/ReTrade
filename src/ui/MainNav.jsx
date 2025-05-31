@@ -11,6 +11,8 @@ import {
 } from "react-icons/hi2";
 import { useGetUser } from "../featuers/Auth/useGetUser";
 import { BsClipboardData, BsListCheck } from "react-icons/bs";
+import { BiBadge } from "react-icons/bi";
+import Badge from "../featuers/messages/Badge";
 
 const StyledMainNav = styled.ul`
   list-style: none;
@@ -22,6 +24,7 @@ const StyledMainNav = styled.ul`
 `;
 
 const StyledNavLink = styled(NavLink)`
+  position: relative;
   display: flex;
   align-items: center;
   gap: 3rem;
@@ -83,6 +86,7 @@ function MainNav() {
               <StyledNavLink to="notfications">
                 <HiMiniBell />
                 <span>Notifications</span>
+                <Badge />
               </StyledNavLink>
             </li>
 

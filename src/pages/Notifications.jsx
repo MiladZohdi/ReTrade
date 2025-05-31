@@ -1,5 +1,5 @@
 import Heading from "../ui/Heading";
-import NotificationContainer from "../ui/NotificationContainer";
+import NotificationContainer from "../featuers/messages/NotificationContainer";
 
 function Notifications() {
   return (

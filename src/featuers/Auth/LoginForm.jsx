@@ -19,6 +19,11 @@ const StyledForm = styled.form`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  & p {
+    color: red;
+    font-size: 1.4rem;
+  }
 `;
 
 const LogButton = styled(Button)`
@@ -35,7 +40,7 @@ function LoginForm() {
 
   function submitForm(data) {
     pathname === "/auth/sign" && signUp(data, { onSuccess: () => reset() });
-    pathname === "/auth/login" && login(data);
+    pathname === "/auth/login" && login(data, { onSettled: () => reset() });
   }
 
   return (
@@ -61,7 +66,14 @@ function LoginForm() {
               type="text"
               placeholder="Email Address"
               id="email"
-              {...register("email", { required: "Email is required" })}
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value:
+                    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
+                  message: "Please enter a valid email address",
+                },
+              })}
               disabled={LoadingSign || LoadingLog}
             />
             {formState.errors.email && <p>{formState.errors.email.message}</p>}
@@ -69,7 +81,13 @@ function LoginForm() {
               placeholder="Password"
               type="password"
               id="password"
-              {...register("password", { required: "Password is required" })}
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 8,
+                  message: "Password must be at least 8 characters",
+                },
+              })}
               disabled={LoadingSign || LoadingLog}
             />
             {formState.errors.password && (
@@ -92,7 +110,14 @@ function LoginForm() {
               placeholder="Email"
               type="email"
               id="email"
-              {...register("email", { required: "Email is required" })}
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value:
+                    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
+                  message: "Please enter a valid email address",
+                },
+              })}
               disabled={LoadingSign || LoadingLog}
             />
             {formState.errors.email && <p>{formState.errors.email.message}</p>}
@@ -100,7 +125,13 @@ function LoginForm() {
               placeholder="Password"
               type="password"
               id="password"
-              {...register("password", { required: "Password is required" })}
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 8,
+                  message: "Password must be at least 8 characters",
+                },
+              })}
               disabled={LoadingSign || LoadingLog}
             />
             {formState.errors.password && (

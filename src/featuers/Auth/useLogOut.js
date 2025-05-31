@@ -8,6 +8,9 @@ export function useLogOut() {
     onSuccess: () => {
       toast.success("You logged out successfully.");
     },
+    onError: (error) => {
+      toast.error(error.message || "Logout failed");
+    },
   });
   return { logout };
 }

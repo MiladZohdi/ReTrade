@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { useUpdateMessage } from "./useUpdateMessage";
 
 const StyledNotification = styled.div`
   display: flex;
@@ -48,11 +49,16 @@ const Dot = styled.div`
         `}
 `;
 
-function Notification({ type }) {
+function Notification({ type, message }) {
+  const { updateMessage } = useUpdateMessage();
+
   return (
-    <StyledNotification type={type}>
+    <StyledNotification
+      type={type}
+      onClick={() => updateMessage({ message_id: message.id })}
+    >
       <Dot type={type} />
-      <p>dandnaldnal</p>
+      <p>{message.message}</p>
     </StyledNotification>
   );
 }

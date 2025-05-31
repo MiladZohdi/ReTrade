@@ -1,3 +1,4 @@
+import { ApiAddMessage } from "./apiMessage";
 import supabase from "./supabase";
 
 const BASE_URL =
@@ -42,14 +43,19 @@ export async function ApiGetSavedAds(user_id) {
 }
 
 export async function ApiUpdateAd(ad) {
+  console.log(ad);
   const { id, ...data } = ad;
   let imageName;
   let imagePath;
 
-  console.log(data);
+  console.log(data.image);
 
-  if (typeof data.image !== "string" && data.image !== undefined) {
-    imageName = `${Math.random()}-${data.image.name}`.replaceAll("/", "");
+  if (
+    typeof data.image !== "string" &&
+    data.image !== undefined &&
+    data.image !== null
+  ) {
+    imageName = `${Math.random()}-${data?.image?.name}`.replaceAll("/", "");
     imagePath = `${BASE_URL}/adimages/${imageName}`;
   }
 
@@ -71,6 +77,18 @@ export async function ApiUpdateAd(ad) {
       .upload(imageName, ad.image);
     if (imageError) throw new Error(imageError.message);
   }
+
+  if (id) {
+    ApiAddMessage({
+      user_id: data.user_id,
+      message: `${data.title} ad updated successfully, Plaease wait for confirmation`,
+    });
+  } else {
+    ApiAddMessage({
+      user_id: data.user_id,
+      message: `${data.title} ad created successfully, Plaease wait for confirmation`,
+    });
+  }
 }
 
 export async function ApiGetAd(id) {
@@ -86,11 +104,20 @@ export async function ApiGetAd(id) {
 }
 
 export async function ApiDeleteAd(id) {
-  const { error } = await supabase.from("ads").delete().eq("id", id);
+  const { data, error } = await supabase
+    .from("ads")
+    .delete()
+    .eq("id", id)
+    .select();
   const { error: error2 } = await supabase
     .from("savedAds")
     .delete()
     .eq("ad_id", id);
+
+  ApiAddMessage({
+    user_id: data[0].user_id,
+    message: `${data[0].title} ad deleted successfully.`,
+  });
 
   if (error || error2) throw new Error(error.message);
 }
