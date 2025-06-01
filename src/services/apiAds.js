@@ -43,12 +43,9 @@ export async function ApiGetSavedAds(user_id) {
 }
 
 export async function ApiUpdateAd(ad) {
-  console.log(ad);
   const { id, ...data } = ad;
   let imageName;
   let imagePath;
-
-  console.log(data.image);
 
   if (
     typeof data.image !== "string" &&

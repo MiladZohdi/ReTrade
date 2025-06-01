@@ -2,6 +2,12 @@ import { Outlet } from "react-router";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import styled from "styled-components";
+import { useEffect } from "react";
+import supabase from "../services/supabase";
+import { useGetUser } from "../featuers/Auth/useGetUser";
+import toast from "react-hot-toast";
+import { LuMessageCircle } from "react-icons/lu";
+import { useQueryClient } from "@tanstack/react-query";
 
 const StyledAppLayout = styled.div`
   display: grid;
@@ -22,6 +28,35 @@ const Container = styled.main`
 `;
 
 function AppLayout() {
+  const queryClient = useQueryClient();
+  const { user_id } = useGetUser();
+  useEffect(() => {
+    const chanel = supabase
+      .channel("messages")
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "messages",
+        },
+        (payload) => {
+          payload.new.user_id === user_id &&
+            toast("new message", {
+              icon: <LuMessageCircle />,
+              style: {
+                borderRadius: "10px",
+              },
+            });
+          queryClient.invalidateQueries(["messages", user_id]);
+        }
+      )
+      .subscribe();
+    return () => {
+      supabase.removeChannel(chanel);
+    };
+  }, [queryClient, user_id]);
+
   return (
     <StyledAppLayout>
       <Header />
