@@ -19,8 +19,10 @@ import { useNavigate } from "react-router";
 import useGetSavedAds from "./useGetSavedAds";
 import { useDeleteAd } from "./useDeleteAd";
 import { useToggleSavedAd } from "./useToggleSavedAd";
+import { useConfirmReject } from "./useConfirmReject";
 import AdForm from "./AdForm";
 import ConfirmationComponent from "../../ui/ConfirmationComponent";
+import { HiOutlineBadgeCheck, HiOutlineBan } from "react-icons/hi";
 
 const ProductContainer = styled.div`
   display: grid;
@@ -44,6 +46,11 @@ const Button = styled.button`
   width: 3rem;
   transition: all 0.3s ease-in-out;
 
+  :hover {
+    cursor: pointer;
+    color: var(--color-primary-dark);
+  }
+
   & svg {
     align-self: center;
     height: 3rem;
@@ -52,11 +59,6 @@ const Button = styled.button`
   }
   &:disabled {
     cursor: not-allowed;
-  }
-
-  :hover {
-    cursor: pointer;
-    color: var(--color-primary-dark);
   }
 `;
 const AdHeader = styled.div`
@@ -88,17 +90,30 @@ const Image = styled.img`
 `;
 
 function ItemsPage() {
-  const { user_id } = useGetUser();
+  const { user_id, isAdmin } = useGetUser();
   const { ad, loadingAd } = useGetAd();
   const { savedAds, loadingSavedAds } = useGetSavedAds();
   const { deleteAd, loadingDeleteAd } = useDeleteAd();
   const { toggleSavedAd, loadingToggleSavedAd } = useToggleSavedAd();
+  const { confirmOrReject, isLoadingConfirmReject } = useConfirmReject();
   const navigat = useNavigate();
 
   if (loadingSavedAds || loadingAd) return <Loader />;
 
   const isDisabled = loadingDeleteAd || loadingToggleSavedAd;
   const isSaved = savedAds?.data?.some((savedAd) => savedAd.id === ad?.id);
+
+  const {
+    id,
+    title,
+    user_id: adUserId,
+    created_at,
+    price,
+    contactInfo,
+    image,
+    description,
+    isConfirmed: adIsConfrimed,
+  } = ad;
 
   return (
     <Modal>
@@ -109,37 +124,47 @@ function ItemsPage() {
           </Button>
 
           <ControlButtonGroup>
-            {!ad.isConfirmed && user_id === ad.user_id && (
+            {!adIsConfrimed && user_id === adUserId && (
               <Button>
                 <RiHourglassFill />
               </Button>
             )}
-            {ad.isConfirmed && user_id === ad.user_id && (
+            {adIsConfrimed && user_id === adUserId && (
               <Button>
                 <IoCheckmarkCircleSharp />
               </Button>
             )}
-            {isSaved && ad.isConfirmed && (
+            {isSaved && adIsConfrimed && (
               <Button
-                onClick={() =>
-                  toggleSavedAd({ ad_id: ad.id, isSaved: isSaved })
-                }
+                onClick={() => toggleSavedAd({ ad_id: id, isSaved: isSaved })}
                 disabled={isDisabled}
               >
                 <IoBookmark />
               </Button>
             )}
-            {!isSaved && ad.isConfirmed && (
+            {!isSaved && adIsConfrimed && (
               <Button
-                onClick={() =>
-                  toggleSavedAd({ ad_id: ad.id, isSaved: isSaved })
-                }
+                onClick={() => toggleSavedAd({ ad_id: id, isSaved: isSaved })}
                 disabled={isDisabled}
               >
                 <IoBookmarkOutline />
               </Button>
             )}
-            {ad.user_id === user_id && (
+            {isAdmin && (
+              <>
+                <Modal.Open opens="confirmAd">
+                  <Button disabled={isLoadingConfirmReject}>
+                    <HiOutlineBadgeCheck />
+                  </Button>
+                </Modal.Open>
+                <Modal.Open opens="rejectAd">
+                  <Button disabled={isLoadingConfirmReject}>
+                    <HiOutlineBan />
+                  </Button>
+                </Modal.Open>
+              </>
+            )}
+            {adUserId === user_id && (
               <>
                 <Modal.Open opens="editAd">
                   <Button disabled={isDisabled}>
@@ -156,13 +181,13 @@ function ItemsPage() {
           </ControlButtonGroup>
         </AdHeader>
         <ProductDetails>
-          <Heading as="h1">{ad?.title}</Heading>
-          <ProductInfo>{formatDate(ad?.created_at)}</ProductInfo>
-          <ProductInfo>{formatCurrency(ad?.price)}</ProductInfo>
-          <ProductInfo>{ad?.contactInfo}</ProductInfo>
-          <ProductInfo>{ad?.description}</ProductInfo>
+          <Heading as="h1">{title}</Heading>
+          <ProductInfo>{formatDate(created_at)}</ProductInfo>
+          <ProductInfo>{formatCurrency(price)}</ProductInfo>
+          <ProductInfo>{contactInfo}</ProductInfo>
+          <ProductInfo>{description}</ProductInfo>
         </ProductDetails>
-        {ad.image ? <Image src={ad?.image} /> : <BiImageAlt />}
+        {image ? <Image src={image} /> : <BiImageAlt />}
       </ProductContainer>
       <Modal.Window name="editAd">
         <AdForm ad={ad} />
@@ -172,11 +197,50 @@ function ItemsPage() {
           title="Are you sure you want to delete this ad?"
           cancelButtonTitle="Cancel"
           confirmButtonTitle="Delete"
-          onClick={() => deleteAd(ad.id, { onSuccess: () => navigat(-1) })}
+          onClick={() => deleteAd(id, { onSuccess: () => navigat(-1) })}
+        />
+      </Modal.Window>
+
+      <Modal.Window name="confirmAd">
+        <ConfirmationComponent
+          title="Are you sure you want to Confirm this ad?"
+          cancelButtonTitle="Cancel"
+          confirmButtonTitle="Confirm"
+          onClick={() =>
+            confirmOrReject(
+              {
+                ad_id: id,
+                ad_title: title,
+                user_id: adUserId,
+                admin_id: user_id,
+                isConfirmed: true,
+              },
+              { onSuccess: () => navigat(-1) }
+            )
+          }
+        />
+      </Modal.Window>
+
+      <Modal.Window name="rejectAd">
+        <ConfirmationComponent
+          title="Are you sure you want to reject this ad?"
+          cancelButtonTitle="Cancel"
+          confirmButtonTitle="Reject"
+          onClick={() =>
+            confirmOrReject(
+              {
+                ad_id: id,
+                ad_title: title,
+                user_id: adUserId,
+                admin_id: user_id,
+                isConfirmed: false,
+              },
+              { onSuccess: () => navigat(-1) }
+            )
+          }
         />
       </Modal.Window>
     </Modal>
   );
 }
-
 export default ItemsPage;

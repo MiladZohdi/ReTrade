@@ -16,6 +16,7 @@ import { Toaster } from "react-hot-toast";
 import AdminProtectedRoot from "./ui/AdminProtectedRoot";
 import PageNotFound from "./ui/PageNotFound";
 import AdsDetails from "./pages/AdsDetails";
+import CheckAds from "./pages/CheckAds";
 
 function App() {
   const queryClient = new QueryClient({
@@ -43,7 +44,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="sign" element={<Login />} />
           </Route>
-
+          /* user Route
           <Route
             path="/app"
             element={
@@ -62,7 +63,7 @@ function App() {
             <Route path="ad-details" element={<AdsDetails />} />
             <Route path="ad-details/:id" element={<AdsDetails />} />
           </Route>
-
+          /* Admin Route
           <Route
             path="/admin"
             element={
@@ -73,7 +74,9 @@ function App() {
           >
             <Route index element={<Navigate replace to="home" />} />
             <Route path="home" element={<WelcomePage />} />
-            <Route path="saved-ads" element={<SavedAds />} />
+            <Route path="check-ads" element={<CheckAds />} />
+            <Route path="ad-details" element={<AdsDetails />} />
+            <Route path="ad-details/:id" element={<AdsDetails />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

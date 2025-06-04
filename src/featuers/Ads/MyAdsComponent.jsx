@@ -15,7 +15,6 @@ function MyAdsComponent() {
       {userAds?.map((ad) => (
         <Card key={ad.id} ad={ad} />
       ))}
-      {!userAds && !loadingUserAds && <h2>You haven't placed any ads yet.</h2>}
     </CardContainer>
   );
 }

@@ -106,7 +106,7 @@ function MainNav() {
               </StyledNavLink>
             </li>
             <li>
-              <StyledNavLink to="Check">
+              <StyledNavLink to="check-ads">
                 <BsListCheck />
                 <span>Check Ads</span>
               </StyledNavLink>

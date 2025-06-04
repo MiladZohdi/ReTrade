@@ -6,6 +6,7 @@ import { TbEdit } from "react-icons/tb";
 import { Link, useLocation } from "react-router";
 import { RiHourglassFill } from "react-icons/ri";
 import { formatCurrency } from "../../helpers/formatCurrncy";
+import { useGetUser } from "../Auth/useGetUser";
 
 const StyledCard = styled(Link)`
   height: 30rem;
@@ -68,8 +69,10 @@ function Card({ ad }) {
   const path = useLocation();
   const kind = path.pathname;
 
+  const { isAdmin } = useGetUser();
+
   return (
-    <StyledCard to={`/app/ad-details/${ad.id}`}>
+    <StyledCard to={`/${isAdmin ? "admin" : "app"}/ad-details/${ad.id}`}>
       {ad?.image ? <img src={ad.image} /> : <BiImageAlt />}
       <CardContent>
         <Details>

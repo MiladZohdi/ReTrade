@@ -136,3 +136,49 @@ export async function ApiToggleSavedAd({ user_id, ad_id, isSaved }) {
     if (insertError) throw new Error(insertError.message);
   }
 }
+
+export async function ApiNotConfirmedAds() {
+  const { data, error } = await supabase
+    .from("ads")
+    .select("*")
+    .eq("isConfirmed", false);
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+export async function ApiConfirmRejectAd({
+  ad_title,
+  ad_id,
+  user_id,
+  admin_id,
+  isConfirmed,
+}) {
+  const { error: confirmAdError } = await supabase
+    .from("confirmRecord")
+    .insert({ ad_id, admin_id, isConfirmed });
+  if (confirmAdError) throw new Error(confirmAdError.message);
+
+  if (isConfirmed) {
+    const { error: confirmAdError } = await supabase
+      .from("ads")
+      .update({ isConfirmed: true })
+      .eq("id", ad_id);
+    ApiAddMessage({
+      user_id: user_id,
+      message: `${ad_title} ad confirmed successfully.`,
+    });
+    if (confirmAdError) throw new Error(confirmAdError.message);
+  } else {
+    const { error: rejectAdError } = await supabase
+      .from("ads")
+      .delete()
+      .eq("id", ad_id);
+    ApiAddMessage({
+      user_id: user_id,
+      message: `unfortunately your ${ad_title} ad is rejected. `,
+    });
+    if (rejectAdError) throw new Error(rejectAdError.message);
+  }
+}
