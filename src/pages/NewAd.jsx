@@ -1,7 +1,7 @@
 // import { Form } from "react-hook-form";
 
 import Heading from "../ui/Heading";
-import AdForm from "../featuers/ads/AdForm";
+import AdForm from "../featuers/Ads/AdForm";
 
 function NewAd() {
   return (
