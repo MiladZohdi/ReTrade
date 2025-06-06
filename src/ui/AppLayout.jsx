@@ -41,6 +41,7 @@ function AppLayout() {
           table: "messages",
         },
         (payload) => {
+          console.log(payload);
           payload.new.user_id === user_id &&
             toast("new message", {
               icon: <LuMessageCircle />,

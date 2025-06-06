@@ -99,12 +99,12 @@ function MainNav() {
           </>
         ) : (
           <>
-            <li>
+            {/* <li>
               <StyledNavLink to="status">
                 <BsClipboardData />
                 <span>Status</span>
               </StyledNavLink>
-            </li>
+            </li> */}
             <li>
               <StyledNavLink to="check-ads">
                 <BsListCheck />
