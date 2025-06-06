@@ -1,5 +1,4 @@
-import CheckAdsComponent from "../featuers/ads/CheckAdsComponent";
-import MyAdsComponent from "../featuers/Ads/MyAdsComponent";
+import CheckAdsComponent from "../featuers/Ads/CheckAdsComponent";
 import Heading from "../ui/Heading";
 
 function CheckAds() {
